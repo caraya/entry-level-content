@@ -1,0 +1,135 @@
+<h1>Presentational Markup</h1>
+<p>These element change the way your content looks and/or behaves in visual browsers. Some of these elements also support accessibility attributes beyond. You can customize the looks of these elements beyond it's default presentation using CSS. We'll talk about attributes in the next section and take a deeper look at accessibility in a later section of this tutorial.</p>
+<section class="message warning">
+<p>I've classed these elements by function. It may not be the correct grouping.</p>
+</section>
+<h2>Paragraphs</h2>
+<p>The most basic structual element in HTML is the <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-p-element">&lt;p&gt;</a> element that represents a paragraph of information.</p>
+<h2>Preformated text and code samples</h2>
+<p>By default HTML paragraphs ignore extra spacing. There are times, however, when we want to preserve the spacing on our text when we're working with computer code or poetry. This is where the <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-pre-element">pre</a> element comes in handy.</p>
+<p>The following example shows a Pascal program that we want to show our readers.</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>var i: Integer;
+begin
+   i := 1;
+end.<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+</code></pre>
+<p>By wrapping it with <code>&lt;pre&gt;</code> tags we make sure that the spacing of the code will be preserved. It will look like this:</p>
+<pre>var i: Integer;
+begin
+   i := 1;
+end.</pre>
+<p>The <a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-code-elemen">code</a> comes works in a different situation. Say for example that you're writing code documentation and want to highlight the name of a file or a shell command. THis is where you'd use this element; it  represents a fragment of computer code. This could be an HTML element name, a file name, a command to run in the command line, a computer program, or any other string that a computer would recognize.</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Install NPM by running <span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>npm i -g npm<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span> from your terminal<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+<p>And the code will look like this:</p>
+<p>Install NPM by running <code>npm i -g npm</code> from your terminal</p>
+<p>We can combine the two elements to give a semantically accurate structure to the markup surrounding our programs. We can re-write the program example like this:</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">code</span>&gt;</span>var i: Integer;
+begin
+   i := 1;
+end.<span class="hljs-tag">&lt;/<span class="hljs-name">code</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+</code></pre>
+<p>and it should look the same as it did earlier.</p>
+<pre><code  style="background-color: transparent">var i: Integer;
+begin
+   i := 1;
+end.</code></pre>
+<p> </p>
+<h3>Citing content</h3>
+<p>Because of the orginal use for the web as a document sharing system, we have support for block quotations and sourcing where appropriate. The
+<a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-blockquote-element">blockquote</a> element acts as a container one or more elements from a different document and source.</p>
+<p>The <a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-cite-element">cite</a> elements indicates the name of the source the quotation is from. This is an inline element. In the example below the <code>cite</code> element  is inside a paragraph, which is one way I would normally cite content in blocks.</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
+ <span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>The truth may be puzzling. It may take some work to grapple with.
+  It may be counterintuitive. It may contradict deeply held
+  prejudices. It may not be consonant with what we desperately want to
+  be true. But our preferences do not determine what's true. We have a
+  method, and that method helps us to reach not absolute truth, only
+  asymptotic approaches to the truth — never there, just closer
+  and closer, always finding vast new oceans of undiscovered
+  possibilities. Cleverly designed experiments are the key.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+ <span class="hljs-tag">&lt;/<span class="hljs-name">blockquote</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>Carl Sagan, in "<span class="hljs-tag">&lt;<span class="hljs-name">cite</span>&gt;</span>Wonder and Skepticism<span class="hljs-tag">&lt;/<span class="hljs-name">cite</span>&gt;</span>", from
+ the <span class="hljs-tag">&lt;<span class="hljs-name">cite</span>&gt;</span>Skeptical Inquirer<span class="hljs-tag">&lt;/<span class="hljs-name">cite</span>&gt;</span> Volume 19, Issue 1 (January-February
+ 1995)<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>
+</code></pre>
+<p>Blockquote works with large blocks of content but there are times when we need to quote smaller fragments inside a paragraph. That's the intended use of the
+<a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-q-element">q</a> element. Here we also use the cite element as an attribute and provide a URL to point to the resource cited in the parent element.</p>
+<pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>The W3C page <span class="hljs-tag">&lt;<span class="hljs-name">cite</span>&gt;</span>About W3C<span class="hljs-tag">&lt;/<span class="hljs-name">cite</span>&gt;</span> says the W3C's
+mission is <span class="hljs-tag">&lt;<span class="hljs-name">q</span> <span class="hljs-attr">cite</span>=<span class="hljs-string">"https://www.w3.org/Consortium/"</span>&gt;</span>To lead the
+World Wide Web to its full potential by developing protocols and
+guidelines that ensure long-term growth for the Web<span class="hljs-tag">&lt;/<span class="hljs-name">q</span>&gt;</span>.<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+</code></pre>
+<h3>Listing content</h3>
+<ul>
+<li><a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ol-element">ol</a></li>
+<li><a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element">ul</a></li>
+<li><a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element">li</a></li>
+</ul>
+<h3>Definition Lists</h3>
+<ul>
+<li>dl</li>
+<li>dt</li>
+<li>dd</li>
+</ul>
+<h3>Figures and images</h3>
+<ul>
+<li><a href="https://html.spec.whatwg.org/#the-figure-element">figure</a></li>
+<li><a href="https://html.spec.whatwg.org/#the-figcaption-element">figcaption</a></li>
+<li><a href="https://html.spec.whatwg.org/#the-img-element">img</a></li>
+</ul>
+<h3>Multimedia</h3>
+<ul>
+<li><a href="https://html.spec.whatwg.org/#the-video-element">video</a></li>
+<li><a href="https://html.spec.whatwg.org/#the-audio-element">audio</a></li>
+<li><a href="https://html.spec.whatwg.org/#the-track-element">track</a></li>
+</ul>
+<h3>Special Containers</h3>
+<ul>
+<li>div</li>
+<li>span</li>
+</ul>
+<h3>Hyperlinks</h3>
+<ul>
+<li>a</li>
+</ul>
+<h3>Typographical styles</h3>
+<ul>
+<li>em</li>
+<li>strong</li>
+<li>small</li>
+<li>dfn</li>
+<li>abbr</li>
+<li>sub and sup</li>
+</ul>
+<h3>Semantic Inflections</h3>
+<ul>
+<li>i</li>
+<li>b</li>
+<li>u</li>
+</ul>
+<h3>When to break and when not to</h3>
+<ul>
+<li>br</li>
+<li>wbr</li>
+</ul>
+<h3>Class and ID attributes</h3>
+<ul>
+<li>Class Attribute</li>
+</ul>
+<p>The class and id attributes may be specified on all HTML elements.</p>
+<p>When specified on HTML elements, the class attribute must have a value that is a set of space-separated tokens representing the various classes that the element belongs to.</p>
+<p>Assigning classes to an element affects class matching in selectors in CSS, the getElementsByClassName() method in the DOM, and other such features.</p>
+<p>There are no additional restrictions on the tokens authors can use in the class attribute, but authors are encouraged to use values that describe the nature of the content, rather than values that describe the desired presentation of the content.</p>
+<ul>
+<li>ID attribute</li>
+</ul>
+<p>When specified on HTML elements, the id attribute value must be unique amongst all the IDs in the element's tree and must contain at least one character. The value must not contain any ASCII whitespace.</p>
+<p>The id attribute specifies its element's unique identifier (ID).</p>
+<p>There are no other restrictions on what form an ID can take; in particular, IDs can consist of just digits, start with a digit, start with an underscore, consist of just punctuation, etc.</p>
+<p>An element's unique identifier can be used for a variety of purposes, most notably as a way to link to specific parts of a document using fragments, as a way to target an element when scripting, and as a way to style a specific element from CSS.</p>
+<h3>Accessibility and Assistive Technology acommodations</h3>
+<p><a href="https://html.spec.whatwg.org/#attr-img-alt">alt attribute</a> for images</p>
+<h3>Integrating CSS and JS to our web pages</h3>
