@@ -1,4 +1,24 @@
-<h1>Learning to build the web</h1>
+<html lang="en" dir="ltr" class="no-js lazy">
+
+<head>
+  <!--<link rel="stylesheet" href="ccs/github.css">-->
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/image-load.css">
+  <link rel="stylesheet" href="css/video-load.css">
+  <link rel="stylesheet" href="css/prism.css">
+  <script async src="scripts/menu.js"></script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,minimum-scale=1,maximum-scale=1">
+
+  <title></title>
+</head>
+
+<body>
+<div class="grid-wrapper">
+
+  <article class="container" id="content">
+    <h1>Learning to build the web</h1>
 <p>This is by no means an exhaustive treatment of  the content to be covered and, like the outline before it, it's meant as a starting point and will definitely get further elaboration over time.</p>
 <h2>What is the web</h2>
 <p>The web is many things.  It's a development platform;  it delivers applications, it delivers content, it plays media (encrypted or not). There is very few things that the web can't display on its own. Rather than address the latest and greatest framework we'll cover the building blocks of the web how to use them and where to go once you've learned the basics.</p>
@@ -31,7 +51,7 @@
 <li>Elements, Attributes and Accessibility</li>
 <li>Integrating CSS and JS to our web pages</li>
 </ul>
-<h3>Structural Markup</h3>
+<h1>Structural Markup</h1>
 <p>The first set of elements we'll discuss are structural elements or tags. These are the elements that represent the organization of the content in the page.</p>
 <p>The first group of tags are the ones that organize the page: <code>&lt;html&gt;</code>, <code>&lt;head&gt;</code> and <code>&lt;body&gt;</code>.</p>
 <p>The <code>&lt;html&gt;</code> element is our main container for the page.</p>
@@ -73,14 +93,14 @@
 <p>Browsers must render old content, some of it 20+ years old, as faithfully as possible. This include working with tags and practices that have been deprecated by the groups that recommends standards for the web or removed by one or more browser vendors.</p>
 <p>So it boils down to this: <strong>Do things the right way from the start</strong></p>
 </aside>
-<h3>Presentational Markup</h3>
+<h1>Presentational Markup</h1>
 <p>These element change the way your content looks and/or behaves in visual browsers. Some of these elements also support accessibility attributes beyond. You can customize the looks of these elements beyond it's default presentation using CSS. We'll talk about attributes in the next section and take a deeper look at accessibility in a later section of this tutorial.</p>
 <section class="message warning">
 <p>I've classed these elements by function. It may not be the correct grouping.</p>
 </section>
-<h4>Paragraphs</h4>
+<h2>Paragraphs</h2>
 <p>The most basic structual element in HTML is the <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-p-element">&lt;p&gt;</a> element that represents a paragraph of information.</p>
-<h4>Preformated text and code samples</h4>
+<h2>Preformated text and code samples</h2>
 <p>By default HTML paragraphs ignore extra spacing. There are times, however, when we want to preserve the spacing on our text when we're working with computer code or poetry. This is where the <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-pre-element">pre</a> element comes in handy.</p>
 <p>The following example shows a Pascal program that we want to show our readers.</p>
 <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>var i: Integer;
@@ -113,7 +133,7 @@ end.</code></pre>
 <h3>Citing content</h3>
 <p>Because of the orginal use for the web as a document sharing system, we have support for block quotations and sourcing where appropriate. The
 <a href="https://html.spec.whatwg.org/multipage/grouping-content.html#the-blockquote-element">blockquote</a> element acts as a container one or more elements from a different document and source.</p>
-<p>The <a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-cite-elemen">cite</a> elements indicates the name of the source the quotation is from. This is an inline element. In the example below the <code>cite</code> element  is inside a paragraph, which is one way I would normally cite content in blocks.</p>
+<p>The <a href="https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-cite-element">cite</a> elements indicates the name of the source the quotation is from. This is an inline element. In the example below the <code>cite</code> element  is inside a paragraph, which is one way I would normally cite content in blocks.</p>
 <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">section</span>&gt;</span>
  <span class="hljs-tag">&lt;<span class="hljs-name">blockquote</span>&gt;</span>
   <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>The truth may be puzzling. It may take some work to grapple with.
@@ -207,8 +227,7 @@ guidelines that ensure long-term growth for the Web<span class="hljs-tag">&lt;/<
 <p>An element's unique identifier can be used for a variety of purposes, most notably as a way to link to specific parts of a document using fragments, as a way to target an element when scripting, and as a way to style a specific element from CSS.</p>
 <h3>Accessibility and Assistive Technology acommodations</h3>
 <p><a href="https://html.spec.whatwg.org/#attr-img-alt">alt attribute</a> for images</p>
-<h3>Integrating CSS and JS to our web pages</h3>
-<h2>CSS</h2>
+<h3>CSS</h3>
 <ul>
 <li>How do you write CSS</li>
 <li>The cascade and specificity</li>
@@ -228,11 +247,17 @@ guidelines that ensure long-term growth for the Web<span class="hljs-tag">&lt;/<
 <li>Progressive Web Applications (PWAs)</li>
 </ul></li>
 </ul>
-<h3>Accessibility</h3>
+<h3>How do we use each of the basic components</h3>
+<ul>
+<li>HTML for structure and semantics (incorporating accessibility)</li>
+<li>CSS for styling the content</li>
+<li>Javascript for interactivity and behaviors</li>
+<li>Accessibility should not be an afterthought</li>
+</ul>
 <h1>Using ARIA</h1>
 <p>Accessibility is one of the most important aspects of development and one that we don't pay as much attention as we should.</p>
 <p>We will look at ARIA (Accessible Rich Internet Applications), what it is and how we can use it in our content to help improve the accessibility of web applications and pages.</p>
-<p>We'll also look at ARIA best practices and authoring guidelines. These are particularly suited to custom elements and components we create using Polymer or React-based applications.</p>
+<p>We'll also look at ARIA best practices and authoring guidelines. These practices to didn't .</p>
 <p>As a last step we'll take page we've retrofitted and have it read by Voice Over, the screen reader bundled as part of MacOS X. This will give us an idea of what a user with visual disabilities experiences when they read the content. Yes, I know... This is all Mac. In my defense, that's what I have and what I use the most. If anyone wants to collaborate with a Windows Version, please ping me on Twitter.</p>
 <ul>
 <li>ARIA
@@ -252,77 +277,15 @@ guidelines that ensure long-term growth for the Web<span class="hljs-tag">&lt;/<
 <li>Standard HTML attributes and how they impact accessibility</li>
 </ul></li>
 </ul>
-<h3>How do we use each of the basic components</h3>
-<ul>
-<li>HTML for structure and semantics (incorporating accessibility)</li>
-<li>CSS for styling the content</li>
-<li>Javascript for interactivity and behaviors</li>
-<li>Accessibility should not be an afterthought</li>
-</ul>
-<h3>Building a simple web page</h3>
-<ul>
-<li>Apply everything we've learned so far</li>
-</ul>
-<h1>Going forward</h1>
-<h2>Progressive Enhancement: No, it doesn't have to look the same in all browsers</h2>
-<ul>
-<li>What it is?</li>
-<li>Why it's important</li>
-</ul>
-<h2>Javascript: Beyond the Basics</h2>
-<ul>
-<li>Programmatically adding accessibility attributes to your markup</li>
-<li>Where to look for errors</li>
-<li>How to debug
-<ul>
-<li>Use the console, Luke</li>
-<li>Introducing dev tools</li>
-</ul></li>
-<li>Where to look for help</li>
-</ul>
-<h2>Choosing a stack. How to decide what to study next</h2>
-<ul>
-<li>What's popular</li>
-<li>By Technology
-<ul>
-<li>3D / Games</li>
-<li>Data Visualization</li>
-</ul></li>
-</ul>
-<h2>Tooling Best Practices</h2>
-<ul>
-<li>Build Systems and Task Runners
-<ul>
-<li>WebPack</li>
-<li>Gulp</li>
-</ul></li>
-<li>Directory and file structure</li>
-</ul>
-<h1>Advanced Topics</h1>
-<h2>Performance</h2>
-<ul>
-<li>Move scripts to the bottom of the page</li>
-<li>Compress your images</li>
-<li>Minimize and concatenate your stylesheets and scripts</li>
-</ul>
-<h2>More HTML Tips, Tricks and Best Practices</h2>
-<ul>
-<li>Micro Data and structured Markup</li>
-</ul>
-<h2>Advanced examples using Gulp</h2>
-<h2>Advanced examples using WebPack</h2>
-<h2>Pattern Libraries</h2>
-<ul>
-<li>What they are?</li>
-<li>What they're good for?</li>
-</ul>
-<h2>React, Preact, Angular, Vue, oh my! (libraries and frameworks)</h2>
-<ul>
-<li>What they are?</li>
-<li>What they're good for?</li>
-</ul>
-<h2>Web Components</h2>
-<ul>
-<li>What they are?</li>
-<li>What they're good for?</li>
-</ul>
+
+  </article>
+
+</div>
+<script src="scripts/lazy-load.js"></script>
+<script src="scripts/vendor/clipboard.min.js"></script>
+<script src="scripts/vendor/prism.js"></script>
+<script src="scripts/vendor/fontfaceobserver.standalone.js"></script>
+<script src="scripts/load-fonts.js"></script>
+<script src="scripts/lazy-load-video.js"></script>
+</body>
+</html>
