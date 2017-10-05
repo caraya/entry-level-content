@@ -365,9 +365,11 @@ As a last step we'll take page we've retrofitted and have it read by Voice Over,
 # Advanced Topics
 
 ## Performance
-- Move scripts to the bottom of the page
+- Move scripts gulp watto the bottom of the page
 - Compress your images
 - Minimize and concatenate your stylesheets and scripts
+
+## HTTP2 and its impact in performance
 
 ## More HTML Tips, Tricks and Best Practices
 - Micro Data and structured Markup
