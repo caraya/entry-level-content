@@ -204,7 +204,7 @@ guidelines that ensure long-term growth for the Web</q>.</p>
 - [ul](https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element)
 - [li](https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element)
 
-### Definition Lists
+### Description Lists
 
 - dl
 - dt
