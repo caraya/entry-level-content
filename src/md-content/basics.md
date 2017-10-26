@@ -79,7 +79,6 @@ The third, and last, group of structural elements are logical containers for oth
 - [footer](https://html.spec.whatwg.org/multipage/sections.html#the-footer-element)  represents a footer for its nearest ancestor sectioning content or sectioning root element. A footer typically contains information about its section such as who wrote it, links to related documents, copyright data, and the like
 - [h1-h6 and hgroup](https://html.spec.whatwg.org/multipage/sections.html#headings-and-sections) The first element of heading content in an element of sectioning content represents the heading for that section. Subsequent headings of equal or higher rank start new (implied) sections, headings of lower rank start implied subsections that are part of the previous one. In both cases, the element represents the heading of the implied section.
 
-<aside class="message info">
 <h2>Tag Soup Markup</h2>
 
 While we strive to create good web content and to show you how you do it, the wider web doesn't always play by the rules. You may find demos and pages that have markup like this:
@@ -100,15 +99,13 @@ Browsers must render old content, some of it 20+ years old, as faithfully as pos
 
 So it boils down to this: **Do things the right way from the start**
 
-</aside>
-
 # Presentational Markup
 
 These element change the way your content looks and/or behaves in visual browsers. Some of these elements also support accessibility attributes beyond. You can customize the looks of these elements beyond it's default presentation using CSS. We'll talk about attributes in the next section and take a deeper look at accessibility in a later section of this tutorial.
 
-<section class="message warning">
+<aside class="message warning">
 <p>I've classed these elements by function. It may not be the correct grouping.</p>
-</section>
+</aside>
 
 ## Paragraphs
 
@@ -274,6 +271,7 @@ There are no other restrictions on what form an ID can take; in particular, IDs 
 
 An element's unique identifier can be used for a variety of purposes, most notably as a way to link to specific parts of a document using fragments, as a way to target an element when scripting, and as a way to style a specific element from CSS.
 
+### Character Entities  (part 1)
 
 ### Accessibility and Assistive Technology acommodations
 
