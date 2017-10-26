@@ -1,14 +1,15 @@
 # Advanced Topics
 
 ## Performance
-- Move scripts gulp watto the bottom of the page
-- Compress your images
-- Minimize and concatenate your stylesheets and scripts
+- Optimization
+    - Move scripts gulp watto the bottom of the page
+    - Compress your images
+    - Minimize and concatenate your stylesheets and scripts
+- Lazy Loading content (intersection observers and otherwise)
 
 ## HTTP2 and its impact in performance
 
-## More HTML Tips, Tricks and Best Practices
-- Micro Data and structured Markup
+## Microdata and structured markup
 
 ## Advanced examples using Gulp
 
