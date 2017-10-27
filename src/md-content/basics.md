@@ -315,18 +315,74 @@ That looks like this:
 
 ### Figures and images
 
+Images are an important part of the web. Since the early days of HTML ([1993](http://1997.webhistory.org/www.lists/www-talk.1993q1/0182.html)) We've had a way to embed images directly on our HTML documents using the `img` tag.
 
+The tag only required attribute is a source for the image using the `src` attribute. There are two ways to reference images. The first one is to use a URL to a remote resource, like this:
 
-- [figure](https://html.spec.whatwg.org/#the-figure-element)
-- [figcaption](https://html.spec.whatwg.org/#the-figcaption-element)
-- [img](https://html.spec.whatwg.org/#the-img-element)
+```html
+<img src="http://lorempixel.com/400/300/people/5/">
+```
+
+<img src="http://lorempixel.com/400/300/people/5/">
+
+And the second one is to use a path (absolute or relative) to the image in the same server as where the page is:
+
+```html
+<img src="path/to/image.png">
+```
+
+We can also provide accessibility cues for screen readers using the `alt` attribute. Screen readers will read the value of the attribute along with the other content of the page. Our next iteration of the image looks like this:
+
+```html
+<img src="http://lorempixel.com/400/300/people/5/" alt="people in a bus looking at the camera">
+```
+
+But the result doesn't change... the image looks the same as it did without the `alt` attribute. However, if you hold your mouse over the image, most browsers will display the value of the `alt` atribute as a tooltip.
+
+<img src="http://lorempixel.com/400/300/people/5/" alt="people in a bus looking at the camera">
+
+As we've seen the `img` element by itself only renders the image and provides accessibility acommodations. In order to display more information about the images we must use a different element; the `figure` element.
+
+In its most basic form, the `figure` element is a container for an `img` element. There shouldn't be any difference
+
+```html
+<figure>
+  <img src="http://lorempixel.com/400/300/people/5/" alt="people in a bus looking at the camera">
+</figure>
+```
+
+<figure>
+  <img src="http://lorempixel.com/400/300/people/5/" alt="people in a bus looking at the camera">
+</figure>
+
+You can add a caption for the image using the `figcaption` child element. This is in addition to the `alt` attribute in the `img` element itself, not a replacement.
+
+```html
+<figure>
+  <img src="http://lorempixel.com/400/300/people/5/" alt="people in a bus looking at the camera">
+  <figcaption>People in a bus looking at the camera</figcaption>
+</figure>
+```
+
+<figure>
+  <img src="http://lorempixel.com/400/300/people/5/" alt="people in a bus looking at the camera">
+  <figcaption>People in a bus looking at the camera</figcaption>
+</figure>
+
+<aside class="message info">
+  <p>Although <code>figure</code> is most often used with images, you can use it with other elements that need caption such as video, code listings and others.</p>
+</aside>
+
+- [img](https://html.spec.whatwg.org/multipage/embedded-content.html#the-img-element)
+- [figure](https://html.spec.whatwg.org/multipage/grouping-content.html#the-figure-element)
+- [figcaption](https://html.spec.whatwg.org/multipage/grouping-content.html#the-figcaption-element)
 
 
 ### Multimedia
 
-- [video](https://html.spec.whatwg.org/#the-video-element)
-- [audio](https://html.spec.whatwg.org/#the-audio-element)
-- [track](https://html.spec.whatwg.org/#the-track-element)
+- [video](https://html.spec.whatwg.org/multipage/media.html#the-video-element)
+- [audio](https://html.spec.whatwg.org/multipage/media.html#the-video-element)
+- [track](https://html.spec.whatwg.org/multipage/media.html#the-video-element)
 
 ### Special Containers
 
