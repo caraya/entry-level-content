@@ -132,7 +132,7 @@ begin
 end.</pre>
 
 
-The [code](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-code-elemen) comes works in a different situation. Say for example that you're writing code documentation and want to highlight the name of a file or a shell command. THis is where you'd use this element; it  represents a fragment of computer code. This could be an HTML element name, a file name, a command to run in the command line, a computer program, or any other string that a computer would recognize.
+The [code](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-code-elemen) works in a different situation. Say for example that you're writing code documentation and want to highlight the name of a file or a shell command. This is where you'd use this element; it  represents a fragment of computer code. This could be an HTML element name, a file name, a command to run in the command line, a computer program, or any other string that a computer would recognize.
 
 ```html
 <p>Install NPM by running <code>npm i -g npm</code> from your terminal</p>
@@ -201,13 +201,121 @@ guidelines that ensure long-term growth for the Web</q>.</p>
 - [ul](https://html.spec.whatwg.org/multipage/grouping-content.html#the-ul-element)
 - [li](https://html.spec.whatwg.org/multipage/grouping-content.html#the-li-element)
 
+HTML provides 3 ways of listing content. The first two will generate default lists. `ol` will generate numbered lists (defaulting to Roman numerals) and `ul` generates bulleteed lists (defaulting to filled circles). We'll use CSS to change the defaults when we cover CSS.
+
+**Example of `ol` numbered list**
+
+```html
+<ol>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ol>
+```
+
+That produces the following result:
+
+1. Item 1
+1. Item 2
+1. Item 3
+
+**Example of `ul` bulleted lists**
+
+```html
+<ul>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ul>
+```
+
+With the following results:
+
+- Item 1
+- Item 2
+- Item 3
+
+You can nest and mix the two types of lists, like in the example below:
+
+```html
+<ol>
+  <li>Item 1</li>
+    <ul>
+      <li>Item 1.1</li>
+      <li>Item 1.2</li>
+      <li>Item 1.3</li>
+    </ul>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ol>
+```
+
+That will produce this display:
+
+<ol>
+  <li>Item 1</li>
+    <ul>
+      <li>Item 1.1</li>
+      <li>Item 1.2</li>
+      <li>Item 1.3</li>
+    </ul>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ol>
+
 ### Description Lists
 
-- dl
-- dt
-- dd
+There is a third way to list content, the description list. A description list represents an association list consisting of zero or more name-value groups. A name-value group consists of one or more names (`dt` elements) followed by one or more values (`dd` elements). Within a single `dl` element, there should not be more than one dt element for each name.
+
+- [dl](https://html.spec.whatwg.org/multipage/grouping-content.html#the-dl-element)
+- [dt](https://html.spec.whatwg.org/multipage/grouping-content.html#the-dt-element)
+- [dd](https://html.spec.whatwg.org/multipage/grouping-content.html#the-dd-element)
+
+```html
+<dl>
+  <dt>Term 1</dt>
+  <dd>This is the definition of the first term.</dd>
+  <dt>Term 2</dt>
+  <dd>This is the definition of the second term.</dd>
+</dl>
+```
+
+It will produce the following code
+
+<dl>
+  <dt>Term 1</dt>
+  <dd>This is the definition of the first term.</dd>
+  <dt>Term 2</dt>
+  <dd>This is the definition of the second term.</dd>
+</dl>
+
+You can have multiple terms and definitions grouped together.
+
+```html
+<dl>
+  <dt>Term 1</dt>
+  <dd>This is the definition of the first term.</dd>
+  <dd>This is another definition of the first term.</dd>
+  <dt>Term 2</dt>
+  <dt>Term 3 is related to term 2</dt>
+  <dd>This is the definition of the second term.</dd>
+</dl>
+```
+
+That looks like this:
+
+<dl>
+  <dt>Term 1</dt>
+  <dd>This is the definition of the first term.</dd>
+  <dd>This is another definition of the first term.</dd>
+  <dt>Term 2</dt>
+  <dt>Term 3 is related to term 2</dt>
+  <dd>This is the definition of the second term.</dd>
+</dl>
 
 ### Figures and images
+
+
 
 - [figure](https://html.spec.whatwg.org/#the-figure-element)
 - [figcaption](https://html.spec.whatwg.org/#the-figcaption-element)
