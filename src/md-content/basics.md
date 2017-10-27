@@ -16,7 +16,7 @@ We group these componentstogether without implying one is more important than th
 
 HTML (HyperText Markup Language) is the language we use to write web content. Whether it's a simple page or a complex application, they all sue the saame structure and presentation tags.
 
-We'll use the following example throughout our discussion of HTML and its components.
+This is a basic example of an HTML document. It shows the basic structure that all pages should have (doctype, html root element, and head and body as the children).
 
 ```html
 <!DOCTYPE html>
@@ -380,54 +380,332 @@ You can add a caption for the image using the `figcaption` child element. This i
 
 ### Multimedia
 
+Multimedia on the web has followed a progression.
+
+In the beginning the web was a text-only medium, designed to exchange academic and technical documentation among researches and scientists.
+
+Then we had images. The first time we could embed content other than text on the web.
+
+Around the same time images became a thing we also got the `embed` element as an entry point for external content. We could finally embed audio and video directly on our web content. The example below would embed a QuickTime movie at the point where the element was inserted.
+
+```html
+<embed type="video/quicktime" src="movie.mov" width="640" height="480">
+```
+
+The problem with `embed` and its cousing `object` is that browser makers and content developers have no say on implementation and security of the third party plugins needed to play embedable content. One of the best known plugins (and a great target for hackers) is Macromedia/Adobe Flash.
+
+HTML5 seeks to address security and bloat issues with plugins by providing ways to play the multimedia audio and video without using plugins. Enter `video` and `audio`.
+
+These tags provide media playback functionality without plugins, it is all baked into the platform and the browsers. The simplest way to use video is to specify a single source for the video (either local or remote).
+
+The `poster` attribute provides a placeholder image that will be visible until the video begins playing.
+
+`src` indicates the source of the video.
+
+`type` indicates what kind of video we are playing. This will become important when we have multiple sources.
+
+```html
+<video controls src="https://www.html5rocks.com/en/tutorials/video/basics/devstories.webm"
+  type='video/webm'
+  poster="https://www.html5rocks.com/en/tutorials/video/basics/poster/poster.png">
+</video>
+```
+
+It will produce the result below:
+
+<video controls src="https://www.html5rocks.com/en/tutorials/video/basics/devstories.webm"
+  type='video/webm'
+  poster="https://www.html5rocks.com/en/tutorials/video/basics/poster.png">
+</video>
+
+<aside class="message warning">
+  <p>If the browser doesn't support the video format you will only see the poster image until you hit play and then you'll see a white or black rectangle where the video would be placed.</p>
+</aside>
+
+The downside of HTML5 video is that vendors were never able to come to an agreement as to what format to use as default. As a result we will have to work with multiple versions of our conetnt to make sure we have as much support as possible.
+
+Instead of using a single `src` attribute we use one or more `source` children elements to specify location and format for each of the video formats we want to make available to our users.
+
+```html
+<video controls poster="https://www.html5rocks.com/en/tutorials/video/basics/poster.png">
+  <source src="https://www.html5rocks.com/en/tutorials/video/basics/devstories.webm"
+    type='video/webm' />
+  <source
+    src="https://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4"
+    type='video/mp4' />
+</video>
+```
+
+Order does matter. Browsers will play the first video format they support so it's important to put the most likely candidate first. In this case the browser will test if it can play mp4 video and, if it can't, then it'll check if it can play WebM.
+
+<video controls poster="https://www.html5rocks.com/en/tutorials/video/basics/poster.png">
+  <source src="https://www.html5rocks.com/en/tutorials/video/basics/devstories.mp4"
+    type='video/mp4' />
+  <source src="https://www.html5rocks.com/en/tutorials/video/basics/devstories.webm"
+    type='video/webm' />
+</video>
+
+The `audio` tag works similarly. We have the option of making a single source available, in this case an MP3 file.
+
+```html
+<audio controls
+  src="http://www.sample-videos.com/audio/mp3/crowd-cheering.mp3">
+  Your browser does not support the <code>audio</code> element.
+</audio>
+```
+
+Where the result looks like this:
+
+<audio controls
+  src="http://www.sample-videos.com/audio/mp3/crowd-cheering.mp3">
+  Your browser does not support the <code>audio</code> element.
+</audio>
+
+
+We can also use the`audio` element with one ore more `source` child elements specifying different formats for the same media.
+
+```html
+<audio controls="">
+  Your browser does not support the <code>audio</code> element.
+  <source src="http://www.sample-videos.com/audio/mp3/crowd-cheering.mp3">
+</audio>
+```
+
+Note that we also provide a textual fallback in case the browser doesn't support any of the provided formats.
+
+<audio controls="">
+  Your browser does not support the <code>audio</code> element.
+  <source src="http://www.sample-videos.com/audio/mp3/crowd-cheering.mp3">
+</audio>
+
 - [video](https://html.spec.whatwg.org/multipage/media.html#the-video-element)
 - [audio](https://html.spec.whatwg.org/multipage/media.html#the-video-element)
+- [source](https://html.spec.whatwg.org/multipage/embedded-content.html#the-source-element)
 - [track](https://html.spec.whatwg.org/multipage/media.html#the-video-element)
+
+<aside class="message info">
+  <p>Both audio and video elements have accessibility implications. We'll discuss these implications when we talk about accessibility.</p>
+</aside>
 
 ### Special Containers
 
-- div
-- span
+There are some elements that can be used to group their children and add further meaning to their children
+
+`div` can be used with the `class`, `lang`, and `title` attributes to mark up semantics and styles for the `div` and its child elements.
+
+```html
+<div class="paragraph1">
+<p>Spicy jalapeno bacon ipsum dolor amet short ribs drumstick
+burgdoggen, strip steak pig frankfurter leberkas turducken.
+Bresaola meatloaf pork tongue salami shankle biltong turducken
+kevin. Filet mignon ribeye bresaola pastrami corned beef short
+loin capicola. Pork loin venison tail shoulder bacon brisket
+boudin meatball burgdoggen. Turducken hamburger landjaeger
+jerky short ribs ball tip. Shankle flank meatloaf porchetta,
+bresaola venison strip steak pork chop tongue kielbasa ribeye
+ham hock beef rump. Beef ribs short loin jowl, ball tip tail
+capicola leberkas doner fatback flank sausage meatball.</p>
+
+<p>Pig ball tip picanha, drumstick strip steak ribeye venison
+andouille bacon. Turducken drumstick salami, pancetta beef ribs
+corned beef landjaeger brisket ham hock meatball picanha swine.
+Cow bresaola corned beef, sausage tail pork short loin spare
+ribs beef ribs salami. Beef ribs pork loin drumstick sirloin.
+Venison landjaeger fatback, tri-tip tongue beef ham hock shankle
+beef ribs tenderloin shoulder brisket alcatra. Corned beef cupim
+ribeye jowl picanha, shoulder short loin tri-tip short ribs
+frankfurter alcatra shank beef meatloaf. Corned beef sausage
+chuck shank landjaeger beef.</p>
+</div>
+```
+
+`span` is the inline version of `div` and serves the same purpose. They are normally used to add microformat semantics and styles for its text and child elements.
+
+```html
+<p>Pig ball tip picanha, drumstick strip steak ribeye venison
+andouille bacon. Turducken drumstick salami, pancetta beef
+ribs corned beef landjaeger brisket ham hock meatball picanha
+swine. Cow bresaola corned beef, sausage tail pork short loin
+spare ribs beef ribs salami. Beef ribs pork loin drumstick
+sirloin. Venison landjaeger fatback, <span class="wide">tri-tip
+tongue beef ham hock shankle beef ribs tenderloin shoulder brisket
+alcatra</span>. Corned beef cupim ribeye jowl picanha, shoulder
+short loin tri-tip short ribs frankfurter alcatra shank beef
+meatloaf. Corned beef sausage chuck shank landjaeger beef.</p>
+```
+
+- [div](https://html.spec.whatwg.org/multipage/grouping-content.html#the-div-element)
+- [span](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-span-element)
 
 ### Hyperlinks
 
-- a
+The web is made of links. The name World Wide **Web** implies relationships between reseources. The `a` element creates relationshhips between resources both within a document and to external resources.
+
+The first example sends people to Google search while the second shows a navigation menu with different
+
+```html
+<p>Let me <a href="https://www.google.com">Google</a> it for you.</p>
+```
+
+```html
+<nav>
+  <ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="about.html">About</a><li>
+    <li><a href="content.html">Content<a></li>
+  </ul>
+</nav>
+```
+
+
+- [a](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-a-element)
 
 ### Typographical styles
 
-- em
-- strong
-- small
-- dfn
-- abbr
-- sub and sup
+The most basic styles we see on the web are bold (represented by `strong`) and italics (represented by `em`). The actual definitions are a little more complex.
+
+The `em` element represents stress emphasis of its contents.
+
+```html
+<p>This is the <em>first</em> step of many.</p>
+```
+
+<div class="message">
+  <p>This is the <em>first</em> step of many.</p>
+</div>
+
+
+The `strong` element represents strong importance, seriousness, or urgency for its contents.
+
+ - **Importance**: the strong element can be used to distinguish the part that really matters from other parts that might be more detailed, more jovial, or merely boilerplate.
+ - **Seriousness**: the strong element can be used to mark up a warning or caution notice.
+ - **Urgency**: the strong element can be used to denote contents that the user needs to see sooner than other parts of the document.
+
+```html
+<p>Beware of the <strong>dark</strong> side</p>
+```
+
+<div class="message">
+  <p>Beware of the <strong>dark</strong> side</p>
+</div>
+
+`sup` and `sub` provide superscript and subscript.
+
+```html
+<p>Water: h<sup>2</sup>o</p>
+```
+
+<div class="message">
+  <p>h<sup>2</sup>o</p>
+</div>
+
+```html
+<p> This is the formula for Carbon 12: 12<sub>N</sub></p>
+```
+
+<div class="message">
+  <p> This is the formula for Carbon 12: 12<sub>N</sub></p>
+</div>
+
+- [em](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-em-element)
+- [strong](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-strong-element)
+- [sub and sup](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-sub-and-sup-elements)
 
 ### Semantic Inflections
 
-- i
-- b
-- u
+The `i` element represents a span of text in an alternate voice or mood, or otherwise offset from the normal prose in a manner indicating a different quality of text in Western texts.
 
-### When to break and when not to
+In this example the content in French is a different voice than the default language so we mark it as such using the `i` element and a `lang` attribute to indicate the language for the fragment (French in this case).
 
-- br
-- wbr
+```html
+<p>There is a certain <i lang="fr">je ne sais quoi</i> in the air.</p>
+```
+
+<div class="message">
+<p>There is a certain <i lang="fr">je ne sais quoi</i> in the air.</p>
+</div>
+
+The `b` element represents a span of text to which attention is being drawn for utilitarian purposes without conveying any extra importance and with no implication of an alternate voice or mood.
+
+```html
+<p>You enter a small room. Your <b>sword</b> glows brighter.
+A <b>rat</b> scurries past the corner wall.</p>
+```
+
+<div class="message">
+  <p>You enter a small room. Your <b>sword</b> glows brighter.  A <b>rat</b> scurries past the corner wall.</p>
+</div>
+
+The `s` element represents contents that are no longer accurate or no longer relevant. This element is not meant to indicate editorial changes for the document, there are other elements better used for it.
+
+```html
+<p>The web was create in <s>1899</s> 1990.</p>
+```
+
+<div class="message">
+  <p>The web was create in <s>1899</s> 1990.</p>
+</div>
+
+The `dfn` element represents the defining instance of a term. The paragraph, description list group, or section that is the nearest ancestor of the dfn element must also contain the definition(s) for the term given by the dfn element.
+
+In the following fragment, the term "Garage Door Opener" is defined in the first paragraph and used later in the document. In both cases, its abbreviation is what is displayed as a tooltip when you hover over the definition.
+
+```html
+<p>The <dfn><abbr title="Garage Door Opener">GDO</abbr></dfn>
+is a device that allows off-world teams to open the iris.</p>
+<!-- ... later in the document: -->
+<p>Teal'c activated his <abbr title="Garage Door Opener">GDO</abbr>
+and so Hammond ordered the iris to be opened.</p>
+```
+With the addition of an a element, the reference can be made explicit by pointing later uses of the abbreviation to where it's defined:
+
+```html
+<p>The <dfn id=gdo><abbr title="Garage Door Opener">GDO</abbr></dfn>
+is a device that allows off-world teams to open the iris.</p>
+<!-- ... later in the document: -->
+<p>Teal'c activated his <a href=#gdo><abbr title="Garage Door Opener">GDO</abbr></a>
+and so Hammond ordered the iris to be opened.</p>
+```
+
+<div class="message">
+<p>The <dfn id=gdo><abbr title="Garage Door Opener">GDO</abbr></dfn> (Garage Door Opener)
+is a device that allows off-world teams to open the iris.</p>
+<!-- ... later in the document: -->
+<p>Teal'c activated his <a href=#gdo><abbr title="Garage Door Opener">GDO</abbr></a>
+and so Hammond ordered the iris to be opened.</p>
+</div>
+
+
+- [i](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-i-element)
+- [b](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-b-element)
+- [u](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-u-element)
+- [s](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-s-element)
+- [dfn](https://html.spec.whatwg.org/multipage/text-level-semantics.html#the-dfn-element)
+
 
 ### Class and ID attributes
 
-- Class Attribute
-
 The class and id attributes may be specified on all HTML elements.
 
-When specified on HTML elements, the class attribute must have a value that is a set of space-separated tokens representing the various classes that the element belongs to.
+The attribute, if specified, must have a value that is a set of one or more space-separated tokens representing the various classes that the element belongs to.
 
-Assigning classes to an element affects class matching in selectors in CSS, the getElementsByClassName() method in the DOM, and other such features.
+The classes that an HTML element has assigned to it consists of all the classes returned when the value of the class attribute is **split on spaces** with duplicates removed.
 
 There are no additional restrictions on the tokens authors can use in the class attribute, but authors are encouraged to use values that describe the nature of the content, rather than values that describe the desired presentation of the content.
 
-- ID attribute
+In this example we use two classes, the first one, `message`, indicate purpose and the second one, `info`, tells what kind of message it is. We can have more than one type of message available.
 
-When specified on HTML elements, the id attribute value must be unique amongst all the IDs in the element's tree and must contain at least one character. The value must not contain any ASCII whitespace.
+```html
+<aside class="message info">
+  <p>This is informational content for you to consider</p>
+</aside>
+```
+
+<aside class="message info">
+  <p>This is informational content for you to consider</p>
+</aside
+
+When specified on HTML elements, the id attribute value must be unique amongst all the IDs in the document and must contain at least one character other than spaces or space equivalent characters.
 
 The id attribute specifies its element's unique identifier (ID).
 
@@ -435,13 +713,31 @@ There are no other restrictions on what form an ID can take; in particular, IDs 
 
 An element's unique identifier can be used for a variety of purposes, most notably as a way to link to specific parts of a document using fragments, as a way to target an element when scripting, and as a way to style a specific element from CSS.
 
+```html
+<h1 id="doc-title">This is the document title</h1>
+
+<!-- later in the document -->
+
+<p><a href="#doc-title">Go to the top</a></p>
+```
+
+<aside class="message">
+<h1 id="doc-title">This is the document title</h1>
+
+<!-- later in the document -->
+
+<p><a href="#doc-title">Go to the top</a></p>
+</aside>
+
+- [class attribute](https://www.w3.org/TR/html51/dom.html#classes)
+- [id attribute](https://www.w3.org/TR/html51/dom.html#the-id-attribute)
+
+
+
 ### Character Entities  (part 1)
 
-### Accessibility and Assistive Technology acommodations
 
-[alt attribute](https://html.spec.whatwg.org/#attr-img-alt) for images
-
-### CSS
+## CSS
 
 - How do you write CSS
 - The cascade and specificity
@@ -449,7 +745,7 @@ An element's unique identifier can be used for a variety of purposes, most notab
 - accessibility considerations
 - DRY
 
-### Javascript
+## Javascript
 
 - naming conventions
 - commenting
@@ -459,13 +755,22 @@ An element's unique identifier can be used for a variety of purposes, most notab
   - ES6 or ES2015
   - Progressive Web Applications (PWAs)
 
-### How do we use each of the basic components
-  - HTML for structure and semantics (incorporating accessibility)
-  - CSS for styling the content
-  - Javascript for interactivity and behaviors
+## How do we use each of the basic components
+
+- HTML for structure and semantics (incorporating accessibility)
+- CSS for styling the content
+- Javascript for interactivity and behaviors
 - Accessibility should not be an afterthought
 
-# Using ARIA
+# Accessibility
+
+## Accessibility and Assistive Technology acommodations
+
+[alt attribute](https://html.spec.whatwg.org/#attr-img-alt) for images
+
+VTT Transcripts and track element for video
+
+## Using ARIA
 
 Accessibility is one of the most important aspects of development and one that we don't pay as much attention as we should.
 
