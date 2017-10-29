@@ -1,8 +1,8 @@
 # Going forward
 
 ## Progressive Enhancement: No, it doesn't have to look the same in all browsers
-- What it is?
-- Why it's important
+- What is it?
+- Why is it important?
 
 ## Javascript: Beyond the Basics
 - Programmatically adding accessibility attributes to your markup
@@ -15,11 +15,12 @@
 
 ## Responsive Images
 
-## Choosing a stack. How to decide what to study next
+## Choosing a stack. How to decide what to study next.
 - What's popular
 - By Technology
   - 3D / Games
   - Data Visualization
+  - Conversational UIs
 - Frameworks
 
 ## Tooling Best Practices
@@ -27,4 +28,4 @@
   - WebPack
   - Gulp
   - Grunt
--  Directory and file structure
+-  Directories and file structure
