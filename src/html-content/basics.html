@@ -243,7 +243,7 @@ guidelines that ensure long-term growth for the Web<span class="hljs-tag">&lt;/<
 <p>We can also provide accessibility cues for screen readers using the <code>alt</code> attribute. Screen readers will read the value of the attribute along with the other content of the page. Our next iteration of the image looks like this:</p>
 <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"http://lorempixel.com/400/300/people/5/"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"people in a bus looking at the camera"</span>&gt;</span>
 </code></pre>
-<p>But the result doesn't change... the image looks the same as it did without the <code>alt</code> attribute. However, if you hold your mouse over the image, most browsers will display the value of the <code>alt</code> atribute as a tooltip.</p>
+<p>But the result doesn't change... the image looks the same as it did without the <code>alt</code> attribute. However, if you hold your mouse over the image, most browsers will display the value of the <code>alt</code> atribute as a tooltip. Assistive technology devices will use the alt attribute as the text to read when it hits the image.</p>
 <p><img src="http://lorempixel.com/400/300/people/5/" alt="people in a bus looking at the camera"></p>
 <p>As we've seen the <code>img</code> element by itself only renders the image and provides accessibility acommodations. In order to display more information about the images we must use a different element; the <code>figure</code> element.</p>
 <p>In its most basic form, the <code>figure</code> element is a container for an <code>img</code> element. There shouldn't be any difference</p>
@@ -523,7 +523,69 @@ and so Hammond ordered the iris to be opened.</p>
 <li><a href="https://www.w3.org/TR/html51/dom.html#the-id-attribute">id attribute</a></li>
 </ul>
 <h3>Character Entities  (part 1)</h3>
+<p>The web can acommodate pretty much all characters in all languages around the world. However browsers are dependent on the fonts available.</p>
+<p>If you know how your computer can create special characters you can use that to generate the Unicode characters for those characters.</p>
+<p>However older browsers need a different way to write characters to display: HTML entities. An HTML entity is a string of text that begins with an ampersand (&amp;) and ends with a semicolon (;). Entities are frequently used to display reserved characters (which would otherwise be interpreted as HTML code), and invisible characters (like non-breaking spaces). You can also use them in place of other characters that are difficult to type with a standard keyboard.</p>
+<p>HTML defines some entities as paart of the HTML specification. The four reserved entities are:</p>
+<table class="standard-table">
+ <thead>
+  <tr>
+   <th scope="col">Character</th>
+   <th scope="col">Entity</th>
+   <th scope="col">Note</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td>&amp;</td>
+   <td><code>&amp;amp;</code></td>
+   <td>Interpreted as the beginning of an entity or character reference.</td>
+  </tr>
+  <tr>
+   <td>&lt;</td>
+   <td><code>&amp;lt;</code></td>
+   <td>Interpreted as the beginning of a tag</td>
+  </tr>
+  <tr>
+   <td>&gt;</td>
+   <td><code>&amp;gt;</code></td>
+   <td>Interpreted as the ending of a tag</td>
+  </tr>
+  <tr>
+   <td>"</td>
+   <td><code>&amp;quot;</code></td>
+   <td>Interpreted as the beginning and end of an attribute's value.</td>
+  </tr>
+ </tbody>
+</table>
 <h2>CSS</h2>
+<p>Cascading style sheets (CSS) provide a way to style the content of our HTML documents without adding elements and attributes beyond classes and IDs.</p>
+<p>There are three basic ways to associate CSS to elements in our web page</p>
+<p>Targeting specific elements.</p>
+<pre><code class="language-css"><span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">font-family</span>: Roboto, Verdana, Arial;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1em</span>;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.25</span>;
+}
+
+<span class="hljs-selector-tag">blockquote</span> {
+  <span class="hljs-attribute">margin-left</span>: <span class="hljs-number">2em</span>;
+  <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">2em</span>;
+}
+</code></pre>
+<p>Using <code>class</code> and <code>id</code> attributes in our HTML content. The example below takes a class indicated by <code>.myClass</code> and gives it a</p>
+<pre><code class="language-css"><span class="hljs-selector-class">.myClass</span> {
+  <span class="hljs-attribute">color</span>: <span class="hljs-number">#00ff00</span>;
+}
+
+<span class="hljs-selector-id">#myID</span> {
+   <span class="hljs-attribute">color</span>: <span class="hljs-number">#0000ff</span>;
+}
+</code></pre>
+<figure>
+  <img src="images/specificityimg.png" alt="description of the CSS cascade using marine life and analogies">
+  <figcaption>CSS speciFISHity from <a href="http://www.standardista.com/css3/css-specificity/">Estelle Weyl</a></figcaption>
+</figure>
 <ul>
 <li>How do you write CSS</li>
 <li>The cascade and specificity</li>
@@ -551,10 +613,21 @@ and so Hammond ordered the iris to be opened.</p>
 <li>Accessibility should not be an afterthought</li>
 </ul>
 <h1>Accessibility</h1>
-<h2>Accessibility and Assistive Technology acommodations</h2>
+<h2>Semantics</h2>
+<!-- Semantics A11Cast -->
+<!--
+<iframe width="560" height="315" src="https://www.youtube.com/embed/g2tzEil5TL0?rel=0" frameborder="0" allowfullscreen></iframe>
+-->
+<div class="youtube-player" data-id="g2tzEil5TL0"></div>
+<h2>Assistive Technology Affordances</h2>
 <p><a href="https://html.spec.whatwg.org/#attr-img-alt">alt attribute</a> for images</p>
 <p>VTT Transcripts and track element for video</p>
 <h2>Using ARIA</h2>
+<!-- Intro to ARIA A11Cast -->
+<!--
+<iframe width="560" height="315" src="https://www.youtube.com/embed/g9Qff0b-lHk?rel=0" frameborder="0" allowfullscreen></iframe>
+-->
+<div class="youtube-player" data-id="g9Qff0b-lHk"></div>
 <p>Accessibility is one of the most important aspects of development and one that we don't pay as much attention as we should.</p>
 <p>We will look at ARIA (Accessible Rich Internet Applications), what it is and how we can use it in our content to help improve the accessibility of web applications and pages.</p>
 <p>We'll also look at ARIA best practices and authoring guidelines. These practices to didn't .</p>

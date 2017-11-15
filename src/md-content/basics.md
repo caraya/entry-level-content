@@ -337,7 +337,11 @@ We can also provide accessibility cues for screen readers using the `alt` attrib
 <img src="http://lorempixel.com/400/300/people/5/" alt="people in a bus looking at the camera">
 ```
 
+<<<<<<< HEAD
 But the result doesn't change&hellip; the image looks the same as it did without the `alt` attribute. However, if you hold your mouse over the image, most browsers will display the value of the `alt` attribute as a tooltip.
+=======
+But the result doesn't change... the image looks the same as it did without the `alt` attribute. However, if you hold your mouse over the image, most browsers will display the value of the `alt` atribute as a tooltip. Assistive technology devices will use the alt attribute as the text to read when it hits the image.
+>>>>>>> started work in CSS
 
 <img src="http://lorempixel.com/400/300/people/5/" alt="people in a bus looking at the camera"/>
 
@@ -737,10 +741,91 @@ An element's unique identifier can be used for a variety of purposes, most notab
 
 ### Character Entities  (part 1)
 
+The web can acommodate pretty much all characters in all languages around the world. However browsers are dependent on the fonts available.
+
+If you know how your computer can create special characters you can use that to generate the Unicode characters for those characters.
+
+However older browsers need a different way to write characters to display: HTML entities. An HTML entity is a string of text that begins with an ampersand (&) and ends with a semicolon (;). Entities are frequently used to display reserved characters (which would otherwise be interpreted as HTML code), and invisible characters (like non-breaking spaces). You can also use them in place of other characters that are difficult to type with a standard keyboard.
+
+HTML defines some entities as paart of the HTML specification. The four reserved entities are:
+
+<table class="standard-table">
+ <thead>
+  <tr>
+   <th scope="col">Character</th>
+   <th scope="col">Entity</th>
+   <th scope="col">Note</th>
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+   <td>&amp;</td>
+   <td><code>&amp;amp;</code></td>
+   <td>Interpreted as the beginning of an entity or character reference.</td>
+  </tr>
+  <tr>
+   <td>&lt;</td>
+   <td><code>&amp;lt;</code></td>
+   <td>Interpreted as the beginning of a tag</td>
+  </tr>
+  <tr>
+   <td>&gt;</td>
+   <td><code>&amp;gt;</code></td>
+   <td>Interpreted as the ending of a tag</td>
+  </tr>
+  <tr>
+   <td>"</td>
+   <td><code>&amp;quot;</code></td>
+   <td>Interpreted as the beginning and end of an attribute's value.</td>
+  </tr>
+ </tbody>
+</table>
 
 ## CSS
 
+<<<<<<< HEAD
 - How to write CSS
+=======
+Cascading style sheets (CSS) provide a way to style the content of our HTML documents without adding elements and attributes beyond classes and IDs.
+
+There are three basic ways to associate CSS to elements in our web page
+
+Targeting specific elements.
+
+```css
+p {
+  font-family: Roboto, Verdana, Arial;
+  font-size: 1em;
+  line-height: 1.25;
+}
+
+blockquote {
+  margin-left: 2em;
+  margin-right: 2em;
+}
+```
+
+Using `class` and `id` attributes in our HTML content. The example below takes a class indicated by `.myClass` and gives it a
+
+```css
+.myClass {
+  color: #00ff00;
+}
+
+#myID {
+   color: #0000ff;
+}
+```
+
+
+<figure>
+  <img src="images/specificityimg.png" alt="description of the CSS cascade using marine life and analogies">
+  <figcaption>CSS speciFISHity from <a href="http://www.standardista.com/css3/css-specificity/">Estelle Weyl</a></figcaption>
+</figure>
+
+
+- How do you write CSS
+>>>>>>> started work in CSS
 - The cascade and specificity
 - Naming conventions
 - Accessibility considerations
@@ -765,7 +850,19 @@ An element's unique identifier can be used for a variety of purposes, most notab
 
 # Accessibility
 
+<<<<<<< HEAD
 ## Accessibility and Assistive Technology accommodations
+=======
+## Semantics
+
+<!-- Semantics A11Cast -->
+<!--
+<iframe width="560" height="315" src="https://www.youtube.com/embed/g2tzEil5TL0?rel=0" frameborder="0" allowfullscreen></iframe>
+-->
+<div class="youtube-player" data-id="g2tzEil5TL0"></div>
+
+## Assistive Technology Affordances
+>>>>>>> started work in CSS
 
 [alt attribute](https://html.spec.whatwg.org/#attr-img-alt) for images
 
@@ -773,7 +870,17 @@ VTT Transcripts and track element for video
 
 ## Using ARIA
 
+<<<<<<< HEAD
 Accessibility is one of the most important aspects of development and one we don't pay as much attention to as we should.
+=======
+<!-- Intro to ARIA A11Cast -->
+<!--
+<iframe width="560" height="315" src="https://www.youtube.com/embed/g9Qff0b-lHk?rel=0" frameborder="0" allowfullscreen></iframe>
+-->
+<div class="youtube-player" data-id="g9Qff0b-lHk"></div>
+
+Accessibility is one of the most important aspects of development and one that we don't pay as much attention as we should.
+>>>>>>> started work in CSS
 
 We will look at ARIA (Accessible Rich Internet Applications), what it is, and how we can use it in our content to help improve the accessibility of web applications and pages.
 
