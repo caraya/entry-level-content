@@ -580,8 +580,15 @@ and so Hammond ordered the iris to be opened.</p>
 </table>
 <h2>CSS</h2>
 <p>Cascading style sheets (CSS) provide a way to style the content of our HTML documents without adding elements and attributes beyond classes and IDs.</p>
-<p>There are three basic ways to associate CSS to elements in our web page</p>
-<p>Targeting specific elements.</p>
+<p>The basic syntax for CSS looks like this:</p>
+<pre><code class="language-css"><span class="hljs-selector-tag">elementName</span> {
+  <span class="hljs-attribute">ruleName</span>: RuleValue;
+}
+</code></pre>
+<p>Given that basic syntax there are three basic ways to associate CSS to elements in our web page</p>
+<p><strong>Targeting specific elements</strong>.</p>
+<p>The easiest way to use CSS is to target specific HTML elements and style them as needed. In the example below we style paragraphs (represented by the <code>p</code> element) with font family, size and line height information.</p>
+<p>We also style the <code>blockquote</code> elements left and right margin.</p>
 <pre><code class="language-css"><span class="hljs-selector-tag">p</span> {
   <span class="hljs-attribute">font-family</span>: Roboto, Verdana, Arial;
   <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1em</span>;
@@ -593,7 +600,10 @@ and so Hammond ordered the iris to be opened.</p>
   <span class="hljs-attribute">margin-right</span>: <span class="hljs-number">2em</span>;
 }
 </code></pre>
-<p>Using <code>class</code> and <code>id</code> attributes in our HTML content. The example below takes a class indicated by <code>.myClass</code> and gives it a</p>
+<p><strong>Using <code>class</code> and <code>id</code> attributes from our HTML content</strong>.</p>
+<p>The first example takes a class indicated by <code>.myClass</code> and gives it a green color.</p>
+<p>The second example uses an ID, defined as <code>#myID</code> and assigns a different color.</p>
+<p><strong><em>The difference between classes and IDs is that IDs are unique to a document while classes can match multiple elements in the same document.</em></strong></p>
 <pre><code class="language-css"><span class="hljs-selector-class">.myClass</span> {
   <span class="hljs-attribute">color</span>: <span class="hljs-number">#00ff00</span>;
 }
@@ -602,6 +612,21 @@ and so Hammond ordered the iris to be opened.</p>
    <span class="hljs-attribute">color</span>: <span class="hljs-number">#0000ff</span>;
 }
 </code></pre>
+<p>We've figured out how to write HTML but that intoduces the following issue. Let's say that we have two different rules defined for the same element.</p>
+<pre><code class="language-css"><span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">font-family</span>: Roboto, Verdana, Arial;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">1em</span>;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.25</span>;
+}
+
+<span class="hljs-selector-tag">p</span> {
+  <span class="hljs-attribute">font-family</span>: Roboto, Verdana, Arial;
+  <span class="hljs-attribute">font-size</span>: <span class="hljs-number">0.75em</span>;
+  <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.25</span>;
+}
+</code></pre>
+<p>Which definition will the browser use?</p>
+<p>To answer this question we need to work with two concepts</p>
 <figure>
   <img src="images/specificityimg.png" alt="description of the CSS cascade using marine life and analogies">
   <figcaption>CSS speciFISHity from <a href="http://www.standardista.com/css3/css-specificity/">Estelle Weyl</a></figcaption>

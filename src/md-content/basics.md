@@ -788,9 +788,21 @@ HTML defines some entities as paart of the HTML specification. The four reserved
 =======
 Cascading style sheets (CSS) provide a way to style the content of our HTML documents without adding elements and attributes beyond classes and IDs.
 
-There are three basic ways to associate CSS to elements in our web page
+The basic syntax for CSS looks like this:
 
-Targeting specific elements.
+```css
+elementName {
+  ruleName: RuleValue;
+}
+```
+
+Given that basic syntax there are a few basic ways to associate CSS to elements in our web page
+
+**Targeting specific elements**.
+
+The easiest way to use CSS is to target specific HTML elements and style them as needed. In the example below we style paragraphs (represented by the `p` element) with font family, size and line height information.
+
+We also style the `blockquote` elements left and right margin.
 
 ```css
 p {
@@ -805,7 +817,13 @@ blockquote {
 }
 ```
 
-Using `class` and `id` attributes in our HTML content. The example below takes a class indicated by `.myClass` and gives it a
+**Using `class` and `id` attributes from our HTML content**.
+
+The first example takes a class indicated by `.myClass` and gives it a green color.
+
+The second example uses an ID, defined as `#myID` and assigns a different color.
+
+> The difference between classes and IDs is that IDs are unique to a document while classes can match multiple elements in the same document.
 
 ```css
 .myClass {
@@ -817,6 +835,100 @@ Using `class` and `id` attributes in our HTML content. The example below takes a
 }
 ```
 
+**Targeting attributes**
+
+```css
+  div[hidden] {
+    display: none;
+  }
+```
+
+## Stylesheet origin and the cascade
+
+We've figured out how to write HTML but that intoduces the following issue. Let's say that we have two different rules defined for the same element.
+
+```css
+p {
+  font-family: Roboto, Verdana, Arial;
+  font-size: 1em;
+  line-height: 1.25;
+}
+
+p {
+  font-family: Roboto, Verdana, Arial;
+  font-size: 0.75em;
+  line-height: 1.25;
+}
+```
+
+Which definition will the browser use?
+
+To answer this question we need to work with three concepts: the origin of a style sheet, the cascade and specificity.
+
+The CSS cascade algorithm wants to select CSS declarations to set the correct value for CSS properties. CSS declarations originate from different origins:
+
+- The browser has a basic style sheet that gives a default style to any document. These style sheets are named **user-agent stylesheets**
+- The author of the Web page defines styles for the document. These are the most common style sheets. Oftentimes, several of them are defined. They define the look and feel of the website — its theme
+- The reader, the user of the browser, may have a custom style sheet to tailor its experience
+
+Though style sheets come from these different origins, they overlap in scope: the cascade defines how they interact. The cascade performs the following tasks
+
+It first filters all the rules from the different sources to keep only the rules that apply to a given element. That means rules whose selector matches the given element and which are part of an appropriate media at-rule.
+
+Then it sorts these rules according to their importance, that is, whether or not they are followed by `!important`, and by their origin. The cascade is in ascending order, which means that !important values from a user-defined style sheet have precedence over normal values originated from a user-agent style sheet:
+
+<table class="standard-table">
+   <thead>
+    <tr>
+     <th scope="col">&nbsp;</th>
+     <th scope="col">Origin</th>
+     <th scope="col">Importance</th>
+    </tr>
+   </thead>
+   <tbody>
+    <tr>
+     <td>1</td>
+     <td>user agent</td>
+     <td>normal</td>
+    </tr>
+    <tr>
+     <td>2</td>
+     <td>user</td>
+     <td>normal</td>
+    </tr>
+    <tr>
+     <td>3</td>
+     <td>author</td>
+     <td>normal</td>
+    </tr>
+    <tr>
+     <td>4</td>
+     <td>CSS Animations</td>
+     <td><em>see below</em></td>
+    </tr>
+    <tr>
+     <td>5</td>
+     <td>author</td>
+     <td><code>!important</code></td>
+    </tr>
+    <tr>
+     <td>6</td>
+     <td>user</td>
+     <td><code>!important</code></td>
+    </tr>
+    <tr>
+     <td>7</td>
+     <td>user agent</td>
+     <td><code>!important</code></td>
+    </tr>
+   </tbody>
+  </table>
+
+In case of equality, the specificity of a value is considered to choose one or the other.
+
+**Specificity**
+
+Specificity
 
 <figure>
   <img src="images/specificityimg.png" alt="description of the CSS cascade using marine life and analogies">
