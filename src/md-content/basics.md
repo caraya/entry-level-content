@@ -783,9 +783,7 @@ HTML defines some entities as paart of the HTML specification. The four reserved
 
 ## CSS
 
-<<<<<<< HEAD
 - How to write CSS
-=======
 Cascading style sheets (CSS) provide a way to style the content of our HTML documents without adding elements and attributes beyond classes and IDs.
 
 The basic syntax for CSS looks like this:
@@ -837,11 +835,66 @@ The second example uses an ID, defined as `#myID` and assigns a different color.
 
 **Targeting attributes**
 
+CSS also gives authors the option of working matching attribute values, either the full attribute values or parts of the attribute located in specific parts of the value.
+
+Take the following example for the `a` element and its attributes as described below.
+
 ```css
-  div[hidden] {
-    display: none;
-  }
+a {
+  color: blue;
+}
+
+/* Internal links, beginning with "#" */
+a[href^="#"] {
+  background-color: gold;
+}
+
+/* Links with "example" anywhere in the URL */
+a[href*="example"] {
+  background-color: silver;
+}
+
+/*  Links with "document" anywhere in the URL,
+    regardless of capitalization */
+a[href*="document" i] {
+  color: cyan;
+}
+
+/* Links that end in ".org" */
+a[href$=".org"] {
+  color: red;
+}
+/* <a> elements with an href matching "https://example.org" */
+a[href="https://example.org"] {
+  color: green;
+}
+
+/* <a> elements with an href containing "example" */
+a[href*="example"] {
+  font-size: 2em;
+}
 ```
+
+The price of this flexibility is complexity. The different attribute matches use different characters to indicate what they represent and match.
+
+<dl>
+  <dt><code>[attr]</code></dt>
+  <dd>This selector will select all elements with the attribute attr, whatever its value</dd>
+  <dt><code>[attr=val]</code></dt>
+  <dd>This selector will select all elements with the attribute attr, but only if its value is the full value</dd>
+  <dt><code>[attr~=val]</code></dt>
+  <dd>This selector will select all elements with the attribute attr, but only if the value val is one of a space-separated list of values contained in the attribute</dd>
+  <dt><code>[attr|=val]</code></dt>
+  <dd>This selector will select all elements with the attribute attr for which the value is exactly val or starts with val-. The dash here isn't a mistake, this is to handle language codes</dd>
+  <dt><code>[attr^=val]</code></dt>
+  <dd>This selector will select all elements with the attribute attr for which the value starts with val</dd>
+  <dt><code>[attr$=val]</code></dt>
+  <dd>This selector will select all elements with the attribute attr for which the value ends with val</dd>
+  <dt><code>[attr*=val]</code></dt>
+  <dd>This selector will select all elements with the attribute attr for which the value contains the string val (unlike [attr~=val]. This selector doesn't treat spaces as value separators but as part of the attribute value</dd>
+</dl>
+
+You can find more information about attribute selector values in MDN's [attribute selectors](https://developer.mozilla.org/en-US/docs/Web/CSS/Attribute_selectors) and CSS-Tricks' [The Skinny on CSS Attribute Selectors](https://css-tricks.com/attribute-selectors/)
 
 ## Stylesheet origin and the cascade
 
@@ -937,7 +990,6 @@ Specificity
 
 
 - How do you write CSS
->>>>>>> started work in CSS
 - The cascade and specificity
 - Naming conventions
 - Accessibility considerations
@@ -962,9 +1014,6 @@ Specificity
 
 # Accessibility
 
-<<<<<<< HEAD
-## Accessibility and Assistive Technology accommodations
-=======
 ## Semantics
 
 <!-- Semantics A11Cast -->
@@ -974,7 +1023,6 @@ Specificity
 <div class="youtube-player" data-id="g2tzEil5TL0"></div>
 
 ## Assistive Technology Affordances
->>>>>>> started work in CSS
 
 [alt attribute](https://html.spec.whatwg.org/#attr-img-alt) for images
 
@@ -982,9 +1030,6 @@ VTT Transcripts and track element for video
 
 ## Using ARIA
 
-<<<<<<< HEAD
-Accessibility is one of the most important aspects of development and one we don't pay as much attention to as we should.
-=======
 <!-- Intro to ARIA A11Cast -->
 <!--
 <iframe width="560" height="315" src="https://www.youtube.com/embed/g9Qff0b-lHk?rel=0" frameborder="0" allowfullscreen></iframe>
@@ -992,11 +1037,10 @@ Accessibility is one of the most important aspects of development and one we don
 <div class="youtube-player" data-id="g9Qff0b-lHk"></div>
 
 Accessibility is one of the most important aspects of development and one that we don't pay as much attention as we should.
->>>>>>> started work in CSS
 
 We will look at ARIA (Accessible Rich Internet Applications), what it is, and how we can use it in our content to help improve the accessibility of web applications and pages.
 
-We'll also look at ARIA best practices and authoring guidelines. 
+We'll also look at ARIA best practices and authoring guidelines.
 
 As a last step we'll take a page we've retrofitted and have it read by VoiceOver, the screen reader bundled as part of MacOS X. This will give us an idea of what a user with visual disabilities experiences when they read the content. To install a free NVDA screen reader for Windows: [https://www.nvaccess.org/](https://www.nvaccess.org/)
 
