@@ -337,11 +337,9 @@ We can also provide accessibility cues for screen readers using the `alt` attrib
 <img src="http://lorempixel.com/400/300/people/5/" alt="people in a bus looking at the camera">
 ```
 
-<<<<<<< HEAD
 But the result doesn't change&hellip; the image looks the same as it did without the `alt` attribute. However, if you hold your mouse over the image, most browsers will display the value of the `alt` attribute as a tooltip.
-=======
+
 But the result doesn't change... the image looks the same as it did without the `alt` attribute. However, if you hold your mouse over the image, most browsers will display the value of the `alt` atribute as a tooltip. Assistive technology devices will use the alt attribute as the text to read when it hits the image.
->>>>>>> started work in CSS
 
 <img src="http://lorempixel.com/400/300/people/5/" alt="people in a bus looking at the camera"/>
 
@@ -914,23 +912,28 @@ p {
 }
 ```
 
-Which definition will the browser use?
+**Which definition will the browser use?**
 
-To answer this question we need to work with three concepts: the origin of a style sheet, the cascade and specificity.
+Let's say that one of the rules is in the browser's default style stylesheet and one in the style sheet you created. Does the answer change?
 
-The CSS cascade algorithm wants to select CSS declarations to set the correct value for CSS properties. CSS declarations originate from different origins:
+Does the answer change if the second rule is in a user's custom style sheet that they use to make reading web content easier?
+
+To answer these questions we need to work with three concepts: the origin of a style sheet, the cascade and specificity.
+
+The CSS cascade is the algorithm that selects CSS declarations to set the correct value for CSS properties. CSS declarations originate from different origins:
 
 - The browser has a basic style sheet that gives a default style to any document. These style sheets are named **user-agent stylesheets**
-- The author of the Web page defines styles for the document. These are the most common style sheets. Oftentimes, several of them are defined. They define the look and feel of the website — its theme
-- The reader, the user of the browser, may have a custom style sheet to tailor its experience
+- The author of the Web page defines styles for the document. These are the most common style sheets. Oftentimes, several of them are defined. In this context they are known as **author styelseheets**
+- The reader, the user of the browser, may have a custom style sheet to tailor its experience. They are known as **user stylesheets**
 
-Though style sheets come from these different origins, they overlap in scope: the cascade defines how they interact. The cascade performs the following tasks
+Style sheets come from these different origins and they overlap in scope (different stylesheets will define styles for the same element). The cascade defines how they interact. The cascade performs the following tasks
 
-It first filters all the rules from the different sources to keep only the rules that apply to a given element. That means rules whose selector matches the given element and which are part of an appropriate media at-rule.
+1. It first filters all the rules from the different sources to keep only the rules that apply to a given element. That means rules whose selector matches the given element and which are part of an appropriate media at-rule.
+2. Then it sorts these rules according to their importance, that is, whether or not they are followed by `!important`, and by their origin.
 
-Then it sorts these rules according to their importance, that is, whether or not they are followed by `!important`, and by their origin. The cascade is in ascending order, which means that !important values from a user-defined style sheet have precedence over normal values originated from a user-agent style sheet:
+The cascade is in ascending order, which means that `!important` values from a user-defined style sheet have precedence over normal values originated from a user-agent style sheet. The precedence order is show in the table below:
 
-<table class="standard-table">
+<table>
    <thead>
     <tr>
      <th scope="col">&nbsp;</th>
@@ -957,7 +960,7 @@ Then it sorts these rules according to their importance, that is, whether or not
     <tr>
      <td>4</td>
      <td>CSS Animations</td>
-     <td><em>see below</em></td>
+     <td><em>Will be discussed in a separate document</em></td>
     </tr>
     <tr>
      <td>5</td>
@@ -981,12 +984,13 @@ In case of equality, the specificity of a value is considered to choose one or t
 
 **Specificity**
 
-Specificity
+Specificity is how the CSS engine in your web browser knows how to piroritize CSS rules that live in the same stylesheet. Specificity is build based on the rules complexity. The figure below, taken from <a href="http://www.standardista.com/css3/css-specificity/">Estelle Weyl's blog</a> gives you an idea of the different specificity weight for different CSS selectors
 
 <figure>
-  <img src="images/specificityimg.png" alt="description of the CSS cascade using marine life and analogies">
+  <img src="../images/specificityimg.png" alt="description of the CSS cascade using marine life and analogies">
   <figcaption>CSS speciFISHity from <a href="http://www.standardista.com/css3/css-specificity/">Estelle Weyl</a></figcaption>
 </figure>
+
 
 
 - How do you write CSS

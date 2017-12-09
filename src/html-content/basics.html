@@ -243,25 +243,8 @@ guidelines that ensure long-term growth for the Web<span class="hljs-tag">&lt;/<
 <p>We can also provide accessibility cues for screen readers using the <code>alt</code> attribute. Screen readers will read the value of the attribute along with the other content of the page. Our next iteration of the image looks like this:</p>
 <pre><code class="language-html"><span class="hljs-tag">&lt;<span class="hljs-name">img</span> <span class="hljs-attr">src</span>=<span class="hljs-string">"http://lorempixel.com/400/300/people/5/"</span> <span class="hljs-attr">alt</span>=<span class="hljs-string">"people in a bus looking at the camera"</span>&gt;</span>
 </code></pre>
-<p>&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
-But the result doesn't change… the image looks the same as it did without the <code>alt</code> attribute. However, if you hold your mouse over the image, most browsers will display the value of the <code>alt</code> attribute as a tooltip.
-=======
-But the result doesn't change... the image looks the same as it did without the <code>alt</code> attribute. However, if you hold your mouse over the image, most browsers will display the value of the <code>alt</code> atribute as a tooltip. Assistive technology devices will use the alt attribute as the text to read when it hits the image.</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<blockquote>
-<p>started work in CSS</p>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
-</blockquote>
+<p>But the result doesn't change… the image looks the same as it did without the <code>alt</code> attribute. However, if you hold your mouse over the image, most browsers will display the value of the <code>alt</code> attribute as a tooltip.</p>
+<p>But the result doesn't change... the image looks the same as it did without the <code>alt</code> attribute. However, if you hold your mouse over the image, most browsers will display the value of the <code>alt</code> atribute as a tooltip. Assistive technology devices will use the alt attribute as the text to read when it hits the image.</p>
 <p><img src="http://lorempixel.com/400/300/people/5/" alt="people in a bus looking at the camera"/></p>
 <p>As we've seen the <code>img</code> element by itself only renders the image and provides accessibility acommodations. In order to display more information about the images we must use a different element; the <code>figure</code> element.</p>
 <p>In its most basic form, the <code>figure</code> element is a container for an <code>img</code> element. There shouldn't be any difference.</p>
@@ -684,18 +667,23 @@ Cascading style sheets (CSS) provide a way to style the content of our HTML docu
   <span class="hljs-attribute">line-height</span>: <span class="hljs-number">1.25</span>;
 }
 </code></pre>
-<p>Which definition will the browser use?</p>
-<p>To answer this question we need to work with three concepts: the origin of a style sheet, the cascade and specificity.</p>
-<p>The CSS cascade algorithm wants to select CSS declarations to set the correct value for CSS properties. CSS declarations originate from different origins:</p>
+<p><strong>Which definition will the browser use?</strong></p>
+<p>Let's say that one of the rules is in the browser's default style stylesheet and one in the style sheet you created. Does the answer change?</p>
+<p>Does the answer change if the second rule is in a user's custom style sheet that they use to make reading web content easier?</p>
+<p>To answer these questions we need to work with three concepts: the origin of a style sheet, the cascade and specificity.</p>
+<p>The CSS cascade is the algorithm that selects CSS declarations to set the correct value for CSS properties. CSS declarations originate from different origins:</p>
 <ul>
 <li>The browser has a basic style sheet that gives a default style to any document. These style sheets are named <strong>user-agent stylesheets</strong></li>
-<li>The author of the Web page defines styles for the document. These are the most common style sheets. Oftentimes, several of them are defined. They define the look and feel of the website — its theme</li>
-<li>The reader, the user of the browser, may have a custom style sheet to tailor its experience</li>
+<li>The author of the Web page defines styles for the document. These are the most common style sheets. Oftentimes, several of them are defined. In this context they are known as <strong>author styelseheets</strong></li>
+<li>The reader, the user of the browser, may have a custom style sheet to tailor its experience. They are known as <strong>user stylesheets</strong></li>
 </ul>
-<p>Though style sheets come from these different origins, they overlap in scope: the cascade defines how they interact. The cascade performs the following tasks</p>
-<p>It first filters all the rules from the different sources to keep only the rules that apply to a given element. That means rules whose selector matches the given element and which are part of an appropriate media at-rule.</p>
-<p>Then it sorts these rules according to their importance, that is, whether or not they are followed by <code>!important</code>, and by their origin. The cascade is in ascending order, which means that !important values from a user-defined style sheet have precedence over normal values originated from a user-agent style sheet:</p>
-<table class="standard-table">
+<p>Style sheets come from these different origins and they overlap in scope (different stylesheets will define styles for the same element). The cascade defines how they interact. The cascade performs the following tasks</p>
+<ol>
+<li>It first filters all the rules from the different sources to keep only the rules that apply to a given element. That means rules whose selector matches the given element and which are part of an appropriate media at-rule.</li>
+<li>Then it sorts these rules according to their importance, that is, whether or not they are followed by <code>!important</code>, and by their origin.</li>
+</ol>
+<p>The cascade is in ascending order, which means that <code>!important</code> values from a user-defined style sheet have precedence over normal values originated from a user-agent style sheet. The precedence order is show in the table below:</p>
+<table>
    <thead>
     <tr>
      <th scope="col">&nbsp;</th>
@@ -722,7 +710,7 @@ Cascading style sheets (CSS) provide a way to style the content of our HTML docu
     <tr>
      <td>4</td>
      <td>CSS Animations</td>
-     <td><em>see below</em></td>
+     <td><em>Will be discussed in a separate document</em></td>
     </tr>
     <tr>
      <td>5</td>
@@ -743,9 +731,9 @@ Cascading style sheets (CSS) provide a way to style the content of our HTML docu
   </table>
 <p>In case of equality, the specificity of a value is considered to choose one or the other.</p>
 <p><strong>Specificity</strong></p>
-<p>Specificity</p>
+<p>Specificity is how the CSS engine in your web browser knows how to piroritize CSS rules that live in the same stylesheet. Specificity is build based on the rules complexity. The figure below, taken from <a href="http://www.standardista.com/css3/css-specificity/">Estelle Weyl's blog</a> gives you an idea of the different specificity weight for different CSS selectors</p>
 <figure>
-  <img src="images/specificityimg.png" alt="description of the CSS cascade using marine life and analogies">
+  <img src="../images/specificityimg.png" alt="description of the CSS cascade using marine life and analogies">
   <figcaption>CSS speciFISHity from <a href="http://www.standardista.com/css3/css-specificity/">Estelle Weyl</a></figcaption>
 </figure>
 <ul>
