@@ -22,14 +22,18 @@ Prince XML User Guide: http://www.princexml.com/doc/9.0/
     padding-top: 6pt;
     counter-increment: footnote;
     float: bottom;
-    column-span: all;
+    -webkit-column-span: all;
+       -moz-column-span: all;
+            column-span: all;
     height: auto;
   }
 }
 body[data-type='book'] {
   color: cmyk(0%, 0%, 100%, 100%);
   color: black;
-  hyphens: auto;
+  -webkit-hyphens: auto;
+      -ms-hyphens: auto;
+          hyphens: auto;
 }
 
 /* PAGE COUNTERS */
@@ -198,6 +202,7 @@ section[data-type='colophon'] {
   @bottom-center {
     vertical-align: middle;
     text-align: center;
+    content: -moz-element(heading);
     content: element(heading);
   }
 }
@@ -383,3 +388,5 @@ figure figcaption::before {
 }
 
 
+
+/*# sourceMappingURL=paged-media-style.css.map */

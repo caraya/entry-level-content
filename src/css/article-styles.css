@@ -280,7 +280,9 @@ h6 {
     padding-top: 6pt;
     counter-increment: footnote;
     float: bottom;
-    column-span: all;
+    -webkit-column-span: all;
+       -moz-column-span: all;
+            column-span: all;
     height: auto;
   }
 }
@@ -453,6 +455,8 @@ pre {
 figure {
   counter-increment: figure-count;
   margin: 12pt 0;
+  max-width: -webkit-min-content;
+  max-width: -moz-min-content;
   max-width: min-content;
 }
 figure img {
@@ -465,6 +469,8 @@ figure figcaption {
 }
 figure figcaption::before {
   content: "Figure " counter(figure-count) ": ";
+  max-width: -webkit-min-content;
+  max-width: -moz-min-content;
   max-width: min-content;
 }
 
@@ -487,3 +493,5 @@ figure figcaption::before {
 }
 
 
+
+/*# sourceMappingURL=article-styles.css.map */

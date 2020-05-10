@@ -23,7 +23,9 @@ Prince XML User Guide: http://www.princexml.com/doc/9.0/
   @footnote {
     counter-increment: footnote;
     float: bottom;
-    column-span: all;
+    -webkit-column-span: all;
+       -moz-column-span: all;
+            column-span: all;
     height: auto;
   }
 }
@@ -376,6 +378,8 @@ section[data-type='chapter'] h6 {
 }
 
 
+
+/*# sourceMappingURL=pm-style.css.map */
 
 /*# sourceMappingURL=pm-style.css.map */
 

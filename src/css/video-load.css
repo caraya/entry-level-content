@@ -32,7 +32,7 @@
   height: auto;
   cursor: pointer;
   -webkit-transition: .4s all;
-  -moz-transition: .4s all;
+  -o-transition: .4s all;
   transition: .4s all;
 }
 .youtube-player .play {
@@ -48,3 +48,5 @@
 }
 
 
+
+/*# sourceMappingURL=video-load.css.map */

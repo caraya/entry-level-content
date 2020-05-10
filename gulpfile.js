@@ -1,4 +1,4 @@
-/* jslint node: true */
+/* eslint max-len: 0 */
 
 'use strict';
 // Require Gulp first
@@ -10,23 +10,18 @@ const $ = require('gulp-load-plugins')({lazy: true});
 const browserSync = require('browser-sync');
 // const reload = browserSync.reload;
 const historyApiFallback = require('connect-history-api-fallback');
-
 // postcss
 const postcss = require('gulp-postcss');
 const autoprefixer = require('autoprefixer');
 // SASS
-const sass = require('gulp-ruby-sass');
-// SASSDoc
-const sassdoc = require('sassdoc');
-// scss lint
-const scsslint = require('gulp-scss-lint');
+const sass = require('gulp-sass');
 // Critical CSS
 const critical = require('critical');
 // Imagemin and Plugins
 const imagemin = require('gulp-imagemin');
 const mozjpeg = require('imagemin-mozjpeg');
+const imageminWebP = require('imagemin-webp');
 // Utilities
-const runSequence = require('run-sequence');
 const del = require('del');
 // Act only on newer files
 const newer = require('gulp-newer');
@@ -37,77 +32,60 @@ const eslint = require('gulp-eslint');
 // accessibility testing
 const axe = require('gulp-axe-webdriver');
 
-const SITE = "";
 /**
  * @name markdown
  * @description converts markdown to HTML
  */
 gulp.task('markdown', () => {
   return gulp.src('src/md-content/*.md')
-    .pipe(markdown({
-      preset: 'commonmark',
-      typographer: true,
-      remarkableOptions: {
+      .pipe(markdown({
+        preset: 'commonmark',
         typographer: true,
-        linkify: true,
-        breaks: false
-      }
-    }))
-    .pipe(gulp.dest('src/html-content/'));
+        remarkableOptions: {
+          typographer: true,
+          linkify: true,
+          breaks: false,
+        },
+      }))
+      .pipe(gulp.dest('src/html-content/'));
 });
 
-gulp.task('build-template', ['markdown'], () => {
+gulp.task('build-template', gulp.series('markdown'), () => {
   gulp.src('./src/html-content/*.html')
-    .pipe($.wrap({src: './src/templates/template.html'}))
-    .pipe(gulp.dest('./src/'));
+      .pipe($.wrap({src: './src/templates/template.html'}))
+      .pipe(gulp.dest('./src/'));
 });
 
 // Build Google Slides
 gulp.task('build-slides', () => {
   return gulp.src('./src/slides/*.md')
-  .pipe($.exec('md2gslides --style github <%= file.path %> '))
-  .pipe($.exec.reporter());
+      .pipe($.exec('md2gslides --style github <%= file.path %> '))
+      .pipe($.exec.reporter());
 });
 
 // Tasks  for working with paged media content
-gulp.task('build-pm-template', () => {
-  gulp.src('./src/html-content/*.html')
-    .pipe($.wrap({src: './src/templates/template-pm.html'}))
-    .pipe(gulp.dest('./src/pm-content'));
+gulp.task('build-pm-template', (done) => {
+  return gulp.src('./src/html-content/*.html')
+      .pipe($.wrap({src: './src/templates/template-pm.html'}))
+      .pipe(gulp.dest('./src/pm-content'));
 });
 
-gulp.task('build-pdf', ['build-pm-template'], () => {
+gulp.task('build-pdf', () => {
   return gulp.src('./src/pm-content/*.html')
-    .pipe(newer('src/pdf/'))
-    .pipe($.exec('prince --verbose --input=html --javascript --style ./src/css/article-styles.css <%= file.path %> '))
-    .pipe($.exec.reporter());
+      .pipe(newer('src/pdf/'))
+      .pipe($.exec('prince --verbose --input=html --javascript --style ./src/css/article-styles.css <%= file.path %> '))
+      .pipe($.exec.reporter());
 });
 
 gulp.task('copy-pdf', () => {
-  gulp.src('src/pm-content/*.pdf', {
-    dot: true
+  return gulp.src('src/pm-content/*.pdf', {
+    dot: true,
   })
-  .pipe(gulp.dest('src/pdf'))
-  .pipe($.size({
-    pretty: true,
-    title: 'copy'
-  }));
-});
-
-gulp.task('prep-essays', () => {
-  return gulp.src([
-    'src/pdf/**',
-    'src/css/**/*',
-    'src/fonts/**/*',
-    'src/images/*.{gif,png,svg,jpg}',
-    'src/scripts/**/*',
-    'src/*.html'
-  ], {
-    base: 'src',
-    overwrite: true
-  })
-    .pipe(newer('../essays'))
-    .pipe(gulp.dest('../essays/'));
+      .pipe(gulp.dest('src/pdf'))
+      .pipe($.size({
+        pretty: true,
+        title: 'copy',
+      }));
 });
 
 // SCSS conversion and CSS processing
@@ -120,49 +98,16 @@ gulp.task('prep-essays', () => {
  * @see {@link http://sass-lang.com|SASS}
  * @see {@link http://sass-compatibility.github.io/|SASS Feature Compatibility}
  */
-gulp.task('sass:dev', () => {
+gulp.task('sass', () => {
   return sass('src/sass/**/*.scss', {
-    sourcemap: true, style: 'expanded'
+    sourcemap: true,
+    style: 'expanded',
   })
-  .pipe(gulp.dest('src/css'))
-  .pipe($.size({
-    pretty: true,
-    title: 'SASS'
-  }));
-});
-
-/**
- * @name scss-lint
- * @description Runs scss-lint against your SCSS files (will not work on files written with the original SASS syntax) to provide style checks.
- *
- * This task depends on the scss-lint Ruby gem
- *
- * @see {@link https://github.com/brigade/scss-lint|scss-lint}
- */
-gulp.task('scss-lint', ['sass:dev'], () => {
-  return gulp.src(['src/scss/**/*.scss'])
-    .pipe(scsslint({
-      reporterOutputFormat: 'Checkstyle'
-    }));
-});
-
-/**
- * @name sassdoc
- * @description generate documentation from your SASS stylesheets
- *
- * @see {@link http://sassdoc.com/|SASSDoc}
- * @see {@link http://sassdoc.com/getting-started/|SASSDoc documentation}
- */
-gulp.task('sassdoc', ['scss-lint'], () => {
-  return gulp.src('src/sass/**/*.scss')
-    .pipe(sassdoc({
-      dest: 'src/sassdocs',
-      verbose: true,
-      display: {
-        access: ['public', 'private'],
-        alias: true
-      }
-    }));
+      .pipe(gulp.dest('src/css'))
+      .pipe($.size({
+        pretty: true,
+        title: 'SASS',
+      }));
 });
 
 /**
@@ -178,19 +123,19 @@ gulp.task('sassdoc', ['scss-lint'], () => {
 gulp.task('processCSS', () => {
   // What processors/plugins to use with PostCSS
   const PROCESSORS = [
-    autoprefixer({browsers: ['last 3 versions']})
+    autoprefixer({browsers: ['last 3 versions']}),
   ];
   return gulp
-    .src('src/css/**/*.css')
-    .pipe($.sourcemaps.init())
-    .pipe(postcss(PROCESSORS))
-    .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest('src/css'))
-    .pipe($.size({
-      pretty: true,
-      title:
-        'processCSS'
-    }));
+      .src('src/css/**/*.css')
+      .pipe($.sourcemaps.init())
+      .pipe(postcss(PROCESSORS))
+      .pipe($.sourcemaps.write('.'))
+      .pipe(gulp.dest('src/css'))
+      .pipe($.size({
+        pretty: true,
+        title:
+          'processCSS',
+      }));
 });
 
 /**
@@ -201,43 +146,43 @@ gulp.task('processCSS', () => {
  */
 gulp.task('uncss', () => {
   return gulp.src('src/css/**/*.css')
-    .pipe($.concat('main.css'))
-    .pipe($.uncss({
-      html: ['index.html']
-    }))
-    .pipe(gulp.dest('css/main.css'))
-    .pipe($.size({
-      pretty: true,
-      title: 'Uncss'
-    }));
+      .pipe($.concat('main.css'))
+      .pipe($.uncss({
+        html: ['index.html'],
+      }))
+      .pipe(gulp.dest('css/main.css'))
+      .pipe($.size({
+        pretty: true,
+        title: 'UNCSS',
+      }));
 });
 
 // Generate & Inline Critical-path CSS
 gulp.task('critical', () => {
   return gulp.src('src/*.html')
-    .pipe(critical({
-      base: 'src/',
-      inline: true,
-      css: ['src/css/main.css'],
-      minify: true,
-      extract: false,
-      ignore: ['font-face'],
-      dimensions: [{
-        width: 320,
-        height: 480
-      }, {
-        width: 768,
-        height: 1024
-      }, {
-        width: 1280,
-        height: 960
-      }]
-    }))
-    .pipe($.size({
-      pretty: true,
-      title: 'Critical'
-    }))
-    .pipe(gulp.dest('dist'));
+      .pipe(critical({
+        base: 'src/',
+        inline: true,
+        css: ['src/css/main.css'],
+        minify: true,
+        extract: false,
+        ignore: ['font-face'],
+        dimensions: [{
+          width: 320,
+          height: 480,
+        }, {
+          width: 768,
+          height: 1024,
+        }, {
+          width: 1280,
+          height: 960,
+        }],
+      }))
+      .pipe($.size({
+        pretty: true,
+        title: 'Critical',
+      }))
+      .pipe(gulp.dest('dist'));
 });
 
 /**
@@ -252,16 +197,16 @@ gulp.task('critical', () => {
  */
 gulp.task('babel', () => {
   return gulp.src('src/es6/**/*.js')
-    .pipe($.sourcemaps.init())
-    .pipe($.babel({
-      presets: ['es2015', 'es2016', 'es2017']
-    }))
-    .pipe($.sourcemaps.write('.'))
-    .pipe(gulp.dest('src/js/'))
-    .pipe($.size({
-      pretty: true,
-      title: 'Babel'
-    }));
+      .pipe($.sourcemaps.init())
+      .pipe($.babel({
+        presets: ['@babel/env-modules'],
+      }))
+      .pipe($.sourcemaps.write('.'))
+      .pipe(gulp.dest('src/js/'))
+      .pipe($.size({
+        pretty: true,
+        title: 'Babel',
+      }));
 });
 
 /**
@@ -270,11 +215,11 @@ gulp.task('babel', () => {
  */
 gulp.task('eslint', () => {
   return gulp.src([
-    'scr/scripts/**/*.js'
+    'scr/scripts/**/*.js',
   ])
-    .pipe(eslint())
-    .pipe(eslint.format())
-    .pipe(eslint.failAfterError());
+      .pipe(eslint())
+      .pipe(eslint.format())
+      .pipe(eslint.failAfterError());
 });
 
 /**
@@ -285,44 +230,7 @@ gulp.task('eslint', () => {
  */
 gulp.task('jsdoc', () => {
   return gulp.src(['README.md', 'gulpfile.js'])
-    .pipe($.jsdoc3());
-});
-
-/**
- * @name psi:mobile
- * @description Mobile performance check using Google Page Speed Insight
- *
- * Use the `nokey` option to try out PageSpeed Insights as part of your build process. For more frequent use, we recommend registering for your own API key.
- *
- * @see {@link https://developers.google.com/speed/docs/insights/v2/getting-started|PSI Getting Started}
- */
-gulp.task('psi:mobile', () => {
-  return $.psi(SITE, {
-    // key: key
-    nokey: 'true',
-    strategy: 'mobile'
-  }).then(data => {
-    console.log('Speed score: ' + data.ruleGroups.SPEED.score);
-    console.log('Usability score: ' + data.ruleGroups.USABILITY.score);
-  });
-});
-
-/**
- * @name psi:desktop
- * @description Desktop performance check using Google Page Speed Insight
- *
- * Use the `nokey` option to try out PageSpeed Insights as part of your build process. For more frequent use, we recommend registering for your own API key.
- *
- * @see {@link https://developers.google.com/speed/docs/insights/v2/getting-started|PSI Getting Started}
- */
-gulp.task('psi:desktop', () => {
-  return $.psi(SITE, {
-    nokey: 'true',
-    // key: key,
-    strategy: 'desktop'
-  }).then(data => {
-    console.log('Speed score: ' + data.ruleGroups.SPEED.score);
-  });
+      .pipe($.jsdoc3());
 });
 
 /**
@@ -336,19 +244,22 @@ gulp.task('psi:desktop', () => {
  */
 gulp.task('imagemin', () => {
   return gulp.src('src/images/originals/**')
-    .pipe(imagemin({
-      progressive: true,
-      svgoPlugins: [
-        {removeViewBox: false},
-        {cleanupIDs: false}
-      ],
-      use: [mozjpeg()]
-    }))
-    .pipe(gulp.dest('src/images'))
-    .pipe($.size({
-      pretty: true,
-      title: 'imagemin'
-    }));
+      .pipe(imagemin({
+        progressive: true,
+        svgoPlugins: [
+          {removeViewBox: false},
+          {cleanupIDs: false},
+        ],
+        use: [
+          mozjpeg(),
+          imageminWebP({quality: 85}),
+        ],
+      }))
+      .pipe(gulp.dest('src/images'))
+      .pipe($.size({
+        pretty: true,
+        title: 'imagemin',
+      }));
 });
 
 /**
@@ -364,104 +275,104 @@ gulp.task('imagemin', () => {
  */
 gulp.task('processImages', () => {
   return gulp.src(['src/images/**/*.{jpg,png}', '!src/images/touch/*.png'])
-    .pipe($.responsive({
-      '*': [{
-        // image-small.jpg is 200 pixels wide
-        width: 200,
-        rename: {
-          suffix: '-small',
-          extname: '.jpg'
-        }
-      }, {
-        // image-small@2x.jpg is 400 pixels wide
-        width: 200 * 2,
-        rename: {
-          suffix: '-small@2x',
-          extname: '.jpg'
-        }
-      }, {
-        // image-large.jpg is 480 pixels wide
-        width: 480,
-        rename: {
-          suffix: '-large',
-          extname: '.jpg'
-        }
-      }, {
-        // image-large@2x.jpg is 960 pixels wide
-        width: 480 * 2,
-        rename: {
-          suffix: '-large@2x',
-          extname: '.jpg'
-        }
-      }, {
-        // image-extralarge.jpg is 1280 pixels wide
-        width: 1280,
-        rename: {
-          suffix: '-extralarge',
-          extname: '.jpg'
-        }
-      }, {
-        // image-extralarge@2x.jpg is 2560 pixels wide
-        width: 1280 * 2,
-        rename: {
-          suffix: '-extralarge@2x',
-          extname: '.jpg'
-        }
-      }, {
-        // image-small.webp is 200 pixels wide
-        width: 200,
-        rename: {
-          suffix: '-small',
-          extname: '.webp'
-        }
-      }, {
-        // image-small@2x.webp is 400 pixels wide
-        width: 200 * 2,
-        rename: {
-          suffix: '-small@2x',
-          extname: '.webp'
-        }
-      }, {
-        // image-large.webp is 480 pixels wide
-        width: 480,
-        rename: {
-          suffix: '-large',
-          extname: '.webp'
-        }
-      }, {
-        // image-large@2x.webp is 960 pixels wide
-        width: 480 * 2,
-        rename: {
-          suffix: '-large@2x',
-          extname: '.webp'
-        }
-      }, {
-        // image-extralarge.webp is 1280 pixels wide
-        width: 1280,
-        rename: {
-          suffix: '-extralarge',
-          extname: '.webp'
-        }
-      }, {
-        // image-extralarge@2x.webp is 2560 pixels wide
-        width: 1280 * 2,
-        rename: {
-          suffix: '-extralarge@2x',
-          extname: '.webp'
-        }
-      }, {
-        // Global configuration for all images
-        // The output quality for JPEG, WebP and TIFF output formats
-        quality: 80,
-        // Use progressive (interlace) scan for JPEG and PNG output
-        progressive: true,
-        // Skip enalrgement warnings
-        skipOnEnlargement: false,
-        // Strip all metadata
-        withMetadata: true
-      }]
-    })
-    .pipe(gulp.dest('dist/images')));
+      .pipe($.responsive({
+        '*': [{
+          // image-small.jpg is 200 pixels wide
+          width: 200,
+          rename: {
+            suffix: '-small',
+            extname: '.jpg',
+          },
+        }, {
+          // image-small@2x.jpg is 400 pixels wide
+          width: 200 * 2,
+          rename: {
+            suffix: '-small@2x',
+            extname: '.jpg',
+          },
+        }, {
+          // image-large.jpg is 480 pixels wide
+          width: 480,
+          rename: {
+            suffix: '-large',
+            extname: '.jpg',
+          },
+        }, {
+          // image-large@2x.jpg is 960 pixels wide
+          width: 480 * 2,
+          rename: {
+            suffix: '-large@2x',
+            extname: '.jpg',
+          },
+        }, {
+          // image-extralarge.jpg is 1280 pixels wide
+          width: 1280,
+          rename: {
+            suffix: '-extralarge',
+            extname: '.jpg',
+          },
+        }, {
+          // image-extralarge@2x.jpg is 2560 pixels wide
+          width: 1280 * 2,
+          rename: {
+            suffix: '-extralarge@2x',
+            extname: '.jpg',
+          },
+        }, {
+          // image-small.webp is 200 pixels wide
+          width: 200,
+          rename: {
+            suffix: '-small',
+            extname: '.webp',
+          },
+        }, {
+          // image-small@2x.webp is 400 pixels wide
+          width: 200 * 2,
+          rename: {
+            suffix: '-small@2x',
+            extname: '.webp',
+          },
+        }, {
+          // image-large.webp is 480 pixels wide
+          width: 480,
+          rename: {
+            suffix: '-large',
+            extname: '.webp',
+          },
+        }, {
+          // image-large@2x.webp is 960 pixels wide
+          width: 480 * 2,
+          rename: {
+            suffix: '-large@2x',
+            extname: '.webp',
+          },
+        }, {
+          // image-extralarge.webp is 1280 pixels wide
+          width: 1280,
+          rename: {
+            suffix: '-extralarge',
+            extname: '.webp',
+          },
+        }, {
+          // image-extralarge@2x.webp is 2560 pixels wide
+          width: 1280 * 2,
+          rename: {
+            suffix: '-extralarge@2x',
+            extname: '.webp',
+          },
+        }, {
+          // Global configuration for all images
+          // The output quality for JPEG, WebP and TIFF output formats
+          quality: 80,
+          // Use progressive (interlace) scan for JPEG and PNG output
+          progressive: true,
+          // Skip enalrgement warnings
+          skipOnEnlargement: false,
+          // Strip all metadata
+          withMetadata: true,
+        }],
+      })
+          .pipe(gulp.dest('dist/images')));
 });
 
 /**
@@ -477,14 +388,15 @@ gulp.task('copyAssets', () => {
     '!src/test',
     '!src/bower_components',
     '!src/cache-config.json',
-    '!**/.DS_Store' // Mac specific directory we don't want to copy over
+    // Mac specific directory we don't want to copy over
+    '!**/.DS_Store',
   ], {
-    dot: true
+    dot: true,
   }).pipe(gulp.dest('dist'))
-    .pipe($.size({
-      pretty: true,
-      title: 'copy'
-    }));
+      .pipe($.size({
+        pretty: true,
+        title: 'copy',
+      }));
 });
 
 /**
@@ -492,17 +404,17 @@ gulp.task('copyAssets', () => {
  * @description deletes specified files
  */
 gulp.task('clean', () => {
-  return del.sync([
+  return del([
     'dist/',
     '.tmp',
     'src/html-content',
     'src/*.html',
     'src/pm-content',
-    'src/pdf'
+    'src/pdf',
   ]);
 });
 
-gulp.task('serve', () => {
+gulp.task('server', () => {
   browserSync({
     port: 2509,
     notify: false,
@@ -512,81 +424,60 @@ gulp.task('serve', () => {
         match: '<span id="browser-sync-binding"></span>',
         fn: function(snippet) {
           return snippet;
-        }
-      }
+        },
+      },
     },
     // Run as an https by uncommenting 'https: true'
     // Note: this uses an unsigned certificate which on first access
     //       will present a certificate warning in the browser.
     // https: true,
     server: {
-      baseDir: ['.tmp', 'src'],
-      middleware: [historyApiFallback()]
-    }
-  });
-
-  // gulp.watch(['src/md-content/*.md'], ['md-watch'], reload) ;
-  // gulp.watch(['src/css/**/*.scss'], ['sass', 'processCSS', reload]);
-  // gulp.watch(['src/images/**/*'], reload);
-});
-
-// Build and serve the output from the dist build
-gulp.task('serve:dist', () => {
-  browserSync({
-    port: 5001,
-    notify: false,
-    logPrefix: "ATHENA",
-    snippetOptions: {
-      rule: {
-        match: '<span id="browser-sync-binding"></span>',
-        fn: function(snippet) {
-          return snippet;
-        }
-      }
+      baseDir: [
+        '.tmp',
+        'src',
+      ],
+      middleware: [
+        historyApiFallback(),
+      ],
     },
-    // Run as an https by uncommenting 'https: true'
-    // Note: this uses an unsigned certificate which on first access
-    //       will present a certificate warning in the browser.
-    // https: true,
-    server: "dist/",
-    middleware: [historyApiFallback()]
   });
-  // gulp.watch(['src/md-content/*.md'], ['md-watch'], reload)
-  // gulp.watch(['src/css/**/*.scss'], ['sass', 'processCSS', reload]);
-  // gulp.watch(['src/images/**/*'], reload);
 });
+
 
 // AXE CORE A11Y Tests
-gulp.task('axe', done => {
-  var options = {
+gulp.task('axe', (done) => {
+  const options = {
     saveOutputIn: './a11yReport.json',
     browser: 'phantomjs',
-    urls: ['src/*.html']
+    urls: ['src/*.html'],
   };
   return axe(options, done);
 });
 
-gulp.task('watch', () => {
-  gulp.watch('src/md-content/*.md', ['build-template']);
-});
-
 // COMBINED TASKS
-gulp.task('prep', () => {
-  runSequence(['copyAssets', 'copyBower', 'copyFonts'], 'processImages');
-});
+gulp.task('prep', gulp.series(
+    'copyAssets',
+    'processImages',
+));
 
 /**
  * @name pdf-build
  * @description creates PDF by running markdown inserting fragment into template, running it through Princexml and copying it to the PDF directory
  */
-gulp.task('pdf-build', () => {
-  runSequence('markdown', 'build-pm-template', 'build-pdf', 'copy-pdf', 'gcs-publish-pdf');
-});
+gulp.task('pdf-build', gulp.series(
+    'markdown',
+    'build-pm-template',
+    'build-pdf',
+    'copy-pdf',
+));
 
 /**
  * @name default
  * @description uses clean, processCSS, build-template, imagemin and copyAssets to build the HTML content from Markdown source
  */
-gulp.task('default', () => {
-  runSequence('processCSS', 'build-template', 'imagemin', 'copyAssets');
-});
+gulp.task('default', gulp.series(
+    'processCSS',
+    'build-template',
+    'imagemin',
+    'copyAssets',
+));

@@ -285,27 +285,49 @@ object {
 }
 
 .flexbox-row-forward {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
 }
 
 .flexbox-row-back {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: row-reverse wrap;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: reverse;
+      -ms-flex-flow: row-reverse wrap;
+          flex-flow: row-reverse wrap;
 }
 
 .flexbox-col-forward {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: column wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column wrap;
+          flex-flow: column wrap;
 }
 
 .flexbox-col-back {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-flow: column-reverse wrap;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: reverse;
+      -ms-flex-flow: column-reverse wrap;
+          flex-flow: column-reverse wrap;
 }
 
 .flex-item {
-  flex: 1 0 auto;
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
 }
 
 .video {
@@ -325,31 +347,63 @@ object {
 
 /* Column predefined classes */
 .cols-2 {
-  column-count: 2;
-  column-gap: 2em;
-  column-fill: balance;
-  column-span: none;
+  -webkit-column-count: 2;
+     -moz-column-count: 2;
+          column-count: 2;
+  -webkit-column-gap: 2em;
+     -moz-column-gap: 2em;
+          column-gap: 2em;
+  -webkit-column-fill: balance;
+     -moz-column-fill: balance;
+          column-fill: balance;
+  -webkit-column-span: none;
+     -moz-column-span: none;
+          column-span: none;
 }
 
 .cols-3 {
-  column-count: 3;
-  column-gap: 1em;
-  column-fill: balance;
-  column-span: none;
+  -webkit-column-count: 3;
+     -moz-column-count: 3;
+          column-count: 3;
+  -webkit-column-gap: 1em;
+     -moz-column-gap: 1em;
+          column-gap: 1em;
+  -webkit-column-fill: balance;
+     -moz-column-fill: balance;
+          column-fill: balance;
+  -webkit-column-span: none;
+     -moz-column-span: none;
+          column-span: none;
 }
 
 .cols-20em-fixed {
-  column-width: 20em;
-  column-gap: 1em;
-  column-fill: balance;
-  column-span: none;
+  -webkit-column-width: 20em;
+     -moz-column-width: 20em;
+          column-width: 20em;
+  -webkit-column-gap: 1em;
+     -moz-column-gap: 1em;
+          column-gap: 1em;
+  -webkit-column-fill: balance;
+     -moz-column-fill: balance;
+          column-fill: balance;
+  -webkit-column-span: none;
+     -moz-column-span: none;
+          column-span: none;
 }
 
 .cols-10em-fixed {
-  column-width: 10em;
-  column-gap: 1em;
-  column-fill: balance;
-  column-span: none;
+  -webkit-column-width: 10em;
+     -moz-column-width: 10em;
+          column-width: 10em;
+  -webkit-column-gap: 1em;
+     -moz-column-gap: 1em;
+          column-gap: 1em;
+  -webkit-column-fill: balance;
+     -moz-column-fill: balance;
+          column-fill: balance;
+  -webkit-column-span: none;
+     -moz-column-span: none;
+          column-span: none;
 }
 
 .grid-wrapper {
@@ -387,3 +441,5 @@ object {
 /* Include media queries for your project here*/
 
 
+
+/*# sourceMappingURL=main.css.map */
